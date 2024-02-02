@@ -1,8 +1,9 @@
-import { _decorator, Component, Node,find, UITransform,Layers, Sprite, Color,Size,resources,SpriteFrame,Texture2D } from 'cc';
+import { _decorator, Component, Node,find, UITransform,Layers, Sprite, Color,Size,resources,SpriteFrame,Texture2D, assetManager, AssetManager, Widget } from 'cc';
 import {UINode} from '../ui-node'
 const { ccclass, property } = _decorator;
+import { UIData } from './uidata';
 
-import { Cell } from './mapdata';
+import {MapData} from './mapdata';
 
 
 
@@ -11,19 +12,25 @@ export class Init extends Component {
 
     start() {
 
+
         resources.loadDir('texture',SpriteFrame,(err,data)=>{
-
-            console.log(err)
+          
             if(!err) {
-                console.log(data)
+                UIData.inst.saveSpriteMap(data);
 
-                data.map(el=>{
-                    console.log(el)
-                })
+              
+                this.initNode();
+                this.createMap();
             }
         })
 
-        this.initNode();
+        
+    }
+
+    initUISprite() {
+
+      
+
     }
 
 
@@ -31,18 +38,17 @@ export class Init extends Component {
     /**初始化节点并保存 */
     initNode() {    
         UINode.inst.root = find('Canvas');
-        UINode.inst.gameNode = find('GameNode');
+        UINode.inst.gameNode = find('Canvas/GameNode');
 
-       
+        UINode.inst.eliminationContainer = find('Canvas/GameNode/EliminationContainer');
 
+ 
     }
 
 
     /**创建地图数据 */
     createMap() {
-        
-
-        
+        MapData.inst.createMap()
     }
 
 

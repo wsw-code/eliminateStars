@@ -14,7 +14,7 @@ export class UINode extends Singleton {
 
     public gameNode:Node = null;
 
-    
+    public eliminationContainer:Node = null;
 
 }
 

@@ -8,11 +8,13 @@
  * 颜色枚举
  */
 export enum ColorType {
-  BLUE="BLUE",
-  RED="RED",
-  PURPLE="PURPLE",
-  GREEN="GREEN",
-  YELLOW="YELLOW"
+  blue="blue",
+  red="red",
+  purple="purple",
+  green="green",
+  yellow="yellow",
 }
 
+
+export type UnionType = `${ColorType}`
 

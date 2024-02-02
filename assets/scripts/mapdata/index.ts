@@ -45,13 +45,14 @@ export class Cell {
     const sprite = node.addComponent(Sprite);
 
 
-    console.log(UIData.inst.spriteMap.get(this.id))
+ 
     sprite.spriteFrame = UIData.inst.spriteMap.get(this.id)
     // transform.setAnchorPoint(0, 1)
     node.layer = 1 << Layers.nameToLayer('UI_2D');
     node.setPosition(this.cellPos)
     transform.width = UIData.inst.CellWidth;
     transform.height = UIData.inst.CellWidth;
+    transform.setAnchorPoint(0,0)
     node.setParent(UINode.inst.eliminationContainer);
     return node
   }
@@ -87,10 +88,7 @@ export class MapData extends Singleton {
     
   }
 
-  adjustPosition() {
-    const eliminationContainer = UINode.inst.eliminationContainer;
-    eliminationContainer.setPosition(new Vec3(-UIData.inst.worldWidth/2,-UIData.inst.worldHeight/2))
-  }
+
 
 
   /**

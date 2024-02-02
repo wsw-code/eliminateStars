@@ -1,9 +1,10 @@
 import { _decorator, Component, Node,find, UITransform,Layers, Sprite, Color,Size,resources,SpriteFrame,Texture2D, assetManager, AssetManager, Widget } from 'cc';
 import {UINode} from '../ui-node'
-const { ccclass, property } = _decorator;
+const { ccclass } = _decorator;
 import { UIData } from './uidata';
 
 import {MapData} from './mapdata';
+import { TouchCrtl } from './control/touch/Touch';
 
 
 
@@ -17,10 +18,9 @@ export class Init extends Component {
           
             if(!err) {
                 UIData.inst.saveSpriteMap(data);
-
-              
                 this.initNode();
                 this.createMap();
+                TouchCrtl.inst.initTouch();
             }
         })
 
@@ -35,14 +35,13 @@ export class Init extends Component {
 
 
 
+
+
     /**初始化节点并保存 */
     initNode() {    
         UINode.inst.root = find('Canvas');
         UINode.inst.gameNode = find('Canvas/GameNode');
-
         UINode.inst.eliminationContainer = find('Canvas/GameNode/EliminationContainer');
-
- 
     }
 
 

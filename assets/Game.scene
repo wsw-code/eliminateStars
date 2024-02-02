@@ -552,7 +552,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Map",
+    "_name": "EliminationContainer",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": {
@@ -593,7 +593,7 @@
       "y": 0,
       "z": 0
     },
-    "_id": "78RS1SNOFLWJH6l0HNh/OE"
+    "_id": "ccUh/5+3NGGrrFifyLXBdL"
   },
   {
     "__type__": "cc.UITransform",
@@ -615,7 +615,7 @@
       "x": 0.5,
       "y": 0.5
     },
-    "_id": "fa93b52WlM0Z+2K02gGYvk"
+    "_id": "4c3fu++mtPup9V+hxYJs25"
   },
   {
     "__type__": "cc.UITransform",

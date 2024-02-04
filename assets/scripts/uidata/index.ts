@@ -8,8 +8,7 @@ export class UIData extends Singleton {
 
   static get inst(){
     return super.getInstance<UIData>()
-}
-
+  }
 
   public get worldWidth() {
     return UINode.inst.gameNode.getComponent(UITransform).width
@@ -19,9 +18,15 @@ export class UIData extends Singleton {
     return UINode.inst.gameNode.getComponent(UITransform).height;
   }
 
-  public get CellWidth() {
-    return UINode.inst.gameNode.getComponent(UITransform).width/AXLE_SIZE;
+  public get containerWidth() {
+    return UINode.inst.eliminationContainer.getComponent(UITransform).width;
   }
+
+  public get CellWidth() {
+    return this.containerWidth/AXLE_SIZE;
+  }
+
+
 
 
 

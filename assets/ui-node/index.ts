@@ -1,4 +1,4 @@
-import { _decorator, Component, Node,find, Vec3, UITransform } from 'cc';
+import { _decorator, Component, Node,find, Vec3, UITransform, Size } from 'cc';
 import Singleton from '../base/singleton'
 import { UIData } from '../scripts/uidata';
 const { ccclass, property } = _decorator;
@@ -15,25 +15,25 @@ export class UINode extends Singleton {
 
     public gameNode:Node = null;
 
+    public _eliminationContainer:Node = null
+
     get eliminationContainer() {
         return this._eliminationContainer
     }
 
     set eliminationContainer(node:Node) {
-        this._eliminationContainer = node;
-        this.adjustPosition(node);
-
+        this._eliminationContainer = this.adjustPosition(node);
     }
 
     adjustPosition(node:Node) {
-        const transform = node.addComponent(UITransform);
-        transform.width = UIData.inst.worldWidth;
-        transform.height = UIData.inst.worldHeight;
-        transform.setAnchorPoint(0,0)
-        node.setPosition(new Vec3(-UIData.inst.worldWidth/2,-UIData.inst.worldHeight/2))
+        const transform = node.getComponent(UITransform);
+        transform.setContentSize(new Size(UIData.inst.worldWidth,UIData.inst.worldWidth))
+        transform.setAnchorPoint(0,0);
+        node.setPosition(new Vec3(-UIData.inst.worldWidth/2,-UIData.inst.worldHeight/2));
+        return node;
     }
 
-    public _eliminationContainer:Node = null
+
 
 }
 

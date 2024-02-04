@@ -5,6 +5,7 @@ import { ColorType } from "../../types";
 import { UIData } from '../uidata';
 import {AXLE_SIZE} from '../../state';
 import { UINode } from '../../ui-node';
+import { coordToPosition } from '../../utils';
 
 
 
@@ -23,10 +24,10 @@ export class Cell {
   
 
 
-  /**单元格位置 */
+  /**坐标转换成单元格位置 */
   get cellPos() {
-
-    return new Vec3(UIData.inst.CellWidth*this.coord.x,UIData.inst.CellWidth*this.coord.y)
+    const _pos = coordToPosition(this.coord.x,this.coord.y);
+    return new Vec3(_pos.x,_pos.y);
   }
 
   constructor(
@@ -36,8 +37,11 @@ export class Cell {
     },
     public id:`${ColorType}`
   ) {
-    this.createNode();
+    this.elimination = this.createNode();
   }
+
+
+
 
   createNode() {
     const node = new Node(this.id)
@@ -82,6 +86,14 @@ export class MapData extends Singleton {
 
   // 地图大小
   public size = new Size();
+
+
+  getCell(x:number,y:number) {
+    if(x>=AXLE_SIZE || y>=AXLE_SIZE || x < 0 || y < 0) {
+      return null;
+    }
+    return MapData.inst.grid[y][x]
+  }
 
   constructor() {
     super();

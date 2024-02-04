@@ -19,7 +19,7 @@ export class Init extends Component {
             if(!err) {
                 UIData.inst.saveSpriteMap(data);
                 this.initNode();
-                this.createMap();
+                MapData.inst.createMap()
                 TouchCrtl.inst.initTouch();
             }
         })
@@ -44,11 +44,6 @@ export class Init extends Component {
         UINode.inst.eliminationContainer = find('Canvas/GameNode/EliminationContainer');
     }
 
-
-    /**创建地图数据 */
-    createMap() {
-        MapData.inst.createMap()
-    }
 
 
 

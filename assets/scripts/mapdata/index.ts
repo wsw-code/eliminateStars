@@ -47,11 +47,7 @@ export class Cell {
     const node = new Node(this.id)
     const transform = node.addComponent(UITransform);
     const sprite = node.addComponent(Sprite);
-
-
- 
     sprite.spriteFrame = UIData.inst.spriteMap.get(this.id)
-    // transform.setAnchorPoint(0, 1)
     node.layer = 1 << Layers.nameToLayer('UI_2D');
     node.setPosition(this.cellPos)
     transform.width = UIData.inst.CellWidth;

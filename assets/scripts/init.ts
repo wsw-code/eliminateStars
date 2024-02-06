@@ -21,7 +21,7 @@ export class Init extends Component {
                 this.initNode();
                 MapData.inst.createMap()
                 TouchCrtl.inst.initTouch();
-                this.initTestNode()
+                // this.initTestNode()
             }
         })
 
@@ -76,7 +76,7 @@ export class Init extends Component {
         lightNode.setParent(wrapperNode);
         const animationComponent = wrapperNode.addComponent(Animation);
         // animationComponent.addClip(lightAnimationClip);
-        animationComponent.defaultClip = lightAnimationClip;
+        animationComponent.defaultClip = lightAnimationClip.inst.animationClip;
         
         
         animationComponent.play()
@@ -94,8 +94,6 @@ export class Init extends Component {
         UINode.inst.root = find('Canvas');
         UINode.inst.gameNode = find('Canvas/GameNode');
         UINode.inst.eliminationContainer = find('Canvas/GameNode/EliminationContainer');
-
-        console.log(UINode.inst.gameNode)
     }
 
 

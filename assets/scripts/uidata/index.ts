@@ -27,6 +27,10 @@ export class UIData extends Singleton {
   }
 
 
+  public get fallStartY() {
+    return this.worldHeight+this.CellWidth;
+  }
+
 
 
 

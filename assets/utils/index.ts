@@ -111,10 +111,19 @@ export const eliminateExe = (cellSet: Set<Cell>)=> {
   if(cellSet.size>1) {     
       [...cellSet].forEach((el,index)=>{
           let _delay = index*40;
+          el.toggleLight()
           setTimeout(()=>{
               el?.elimination.destroy()
               _delay
           },_delay)
       })
   }
+}
+
+
+
+
+export const rnd = ( minNum : number , maxNum : number ) => 
+{
+    return parseInt( Math.random()*(maxNum-minNum+1)+minNum + "" ,10); 
 }

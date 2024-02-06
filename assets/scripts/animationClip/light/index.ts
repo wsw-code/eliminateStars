@@ -1,31 +1,60 @@
 
 
 import { animation, AnimationClip, Vec3 } from "cc";
-
-const animationClip = new AnimationClip();
-animationClip.duration = 10; // 整个动画剪辑的周期
-
-const track  = new animation.ObjectTrack(); // 创建一个向量轨道
-
-
-track.path = new animation.TrackPath().toHierarchy('light').toProperty('active'); // 指定轨道路径，即指定目标对象为 "Foo" 子节点的 "position" 属性
-
-// 如果关键帧的组织是 [时间, 向量] 数组，可以利用解构语法赋值每一条通道曲线。
-const vec3KeyFrames = [
-    [0,{value:false}],
-    [1,{value:true}],
-    [2,{value:true}],
-] as [number, {value:boolean}][];
-track.channel.curve.assignSorted(vec3KeyFrames.map(([time, v]) => [time, v.value]));
+import Singleton from "../../../base/singleton";
 
 
 
-// 最后将轨道添加到动画剪辑以应用
-animationClip.addTrack(track);
-// animationClip.wrapMode = AnimationClip.WrapMode.Loop;
+// export const lightAnimationClip = animationClip
 
-console.log('animationClip',animationClip)
+import { NodeName } from "../../../enum";
 
-animationClip.wrapMode = AnimationClip.WrapMode.Loop
+export class lightAnimationClip extends Singleton {
 
-export const lightAnimationClip = animationClip
+    static get inst(){
+        return super.getInstance<lightAnimationClip>()
+    }
+
+    animationClip:AnimationClip = null;
+
+    duration:number = 0;
+
+    track:animation.ObjectTrack<boolean>
+
+    keyFrames:{
+        time:number,
+        value:boolean
+    }[]
+
+    constructor() {
+        super();
+        this.animationClip = new AnimationClip();
+        this.track = new animation.ObjectTrack<boolean>();
+        this.track.path = new animation.TrackPath().toHierarchy(NodeName.light).toProperty('active');
+        this.keyFrames = this.createFrames();
+        this.track.channel.curve.assignSorted(this.keyFrames.map(({time,value}) => [time,value]));
+        this.animationClip.addTrack(this.track);
+        this.animationClip.wrapMode = AnimationClip.WrapMode.Loop;
+        this.animationClip.duration = 0.4
+    }
+
+
+    createFrames() {
+        return [
+            {
+                time:0,
+                value:false
+            },
+            {
+                time:0.2,
+                value:true
+            },
+            {
+                time:0.4,
+                value:false
+            },
+        ]
+    }
+
+
+}

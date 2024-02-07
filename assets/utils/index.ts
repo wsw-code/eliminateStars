@@ -1,10 +1,8 @@
-import { Vec3 } from 'cc'
+
 import Singleton from '../base/singleton';
 import { UIData } from '../scripts/uidata';
-import { UINode } from '../ui-node';
-import { Cell, MapData } from '../scripts/mapdata';
-
-
+import {  MapData } from '../scripts/mapdata';
+import { Cell } from '../scripts/Cell';
 
 
 export class NodeCreateFactory extends Singleton {
@@ -70,7 +68,7 @@ export const getAroundCell = (cell:Cell) => {
 export const findEliminateTree = (x:number,y:number) => {
 
   const _cell = MapData.inst.getCell(x,y);
-  if(!_cell?.elimination) {
+  if(!_cell?.cellNode) {
     return null
   }
   const recursionList:Cell[] = [];
@@ -113,7 +111,7 @@ export const eliminateExe = (cellSet: Set<Cell>)=> {
           let _delay = index*40;
           el.toggleLight()
           setTimeout(()=>{
-              el?.elimination.destroy()
+              el?.cellNode.destroy()
               _delay
           },_delay)
       })

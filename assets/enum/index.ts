@@ -7,7 +7,7 @@ export enum NodeName {
   /**消除物边框 */
   light="light",
   /**消除物 */
-  cell="cell",
+  eliminate="eliminate",
   /**消除物容器 */
   cellWrapper="cellWrapper"
 }

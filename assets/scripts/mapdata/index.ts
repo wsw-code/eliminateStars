@@ -1,11 +1,13 @@
 
-import {Vec3,Size,tween} from 'cc'
+import {Vec3,Size,tween, Node} from 'cc'
 import Singleton from '../../base/singleton';
 import { ColorType } from "../../types";
 import { UIData } from '../uidata';
 import {AXLE_SIZE} from '../../state';
-import {  rnd } from '../../utils';
+import {  forEachCell, rnd } from '../../utils';
 import {Cell} from '../Cell'
+import { Elimination } from '../Elimination';
+import { FallCtrl } from '../control/FallCtrl';
 
 
 export class MapData extends Singleton {
@@ -45,6 +47,7 @@ export class MapData extends Singleton {
 
 
 
+
   /**
    * 获取随机颜色
    */
@@ -54,34 +57,56 @@ export class MapData extends Singleton {
 
 
   createMap() {
-    let delay = 0;
+    // let delay = 0;
     for (let y = 0; y < AXLE_SIZE; y++) {
       this.grid.push([]);
       for (let x = 0; x < AXLE_SIZE; x++) {
-        const cell = new Cell({x,y},this.colorList[this.getRandomColor()]);
+        const kindId = this.colorList[this.getRandomColor()]
+        const cell = new Cell({x,y});
+        cell.elimination = new Elimination({x,y},kindId);
         this.grid[y].push(cell);
-        this.executeFall(cell,delay)
+        // this.executeFall(cell,delay);
       }
-      delay += 0.09
+      // delay += 0.09
     }
-    
   }
+
+
 
   /**
    * 游戏开始时，消除物下落逻辑
    * @param cell 消除物实例
    * @param delay 延迟时间
    */
-  executeFall(cell:Cell,delay:number) {
-    const node = cell.cellNode;
-    const fallEndY = cell.cellPos.y;
-    const duration = ( UIData.inst.fallStartY - fallEndY ) / this.fallSpeed;
-    const  r = rnd( 0 , 400 ) * 0.001 ;  
-    node.setPosition(new Vec3( cell.cellPos.x , UIData.inst.fallStartY));
-    tween( node ).delay( delay + r ).to( duration , { position : cell.cellPos } ).call( ()=>{
-      console.log('完成下落');
-      cell.playFall();
-     } ).start() ; 
+  executeFall() {
+
+    const nodeList = this.grid.flat();
+    const promiseArr:Promise<any>[] = [];
+    nodeList.forEach((cell,index)=>{
+      const node = cell.elimination.node;
+      const  r = rnd( 0 , 400 ) * 0.001;  
+      const startPos = new Vec3( cell.cellPos.x , UIData.inst.fallStartY);
+      const endPos = cell.cellPos;
+      node.setPosition(startPos);
+
+      const duration = Math.abs(( endPos.y - startPos.y  )) / this.fallSpeed;
+      promiseArr.push((()=>{
+        return new Promise((res)=>{
+          tween( node ).delay(0.09*Math.floor(index/AXLE_SIZE)+r).to( duration , { position : endPos } ).call( ()=>{
+              res('complete')
+          } ).start() ;
+      })
+      })())
+    })
+
+
+    Promise.all(promiseArr)
+    .then(()=>{
+      console.log('完成下落')
+    })
+
+
+
   }
 
 }

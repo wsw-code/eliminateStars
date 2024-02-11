@@ -33,15 +33,13 @@ export class FallClip extends Singleton {
         super();
         this.animationClip = new AnimationClip();
         this.track = new animation.SizeTrack();
-        this.track.path = new animation.TrackPath().toHierarchy(NodeName.eliminate).toProperty('scale');
+        this.track.path = new animation.TrackPath().toHierarchy(NodeName.star).toProperty('scale');
         const [x, y] = this.track.channels(); // x, y 是前两条通道
         this.keyFrames = this.createFrames();
         x.curve.assignSorted(this.keyFrames.map(({time,value}) => [time,{'value':value.x}]));
         y.curve.assignSorted(this.keyFrames.map(({time,value}) => [time,{'value':value.y}]));
         this.animationClip.addTrack(this.track);
-        this.animationClip.duration = this.duration;
-        // this.animationClip.wrapMode = AnimationClip.WrapMode.Loop;
-    
+        this.animationClip.duration = this.duration;    
     }
 
 

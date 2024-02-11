@@ -19,7 +19,8 @@ export class Init extends Component {
             if(!err) {
                 UIData.inst.saveSpriteMap(data);
                 this.initNode();
-                MapData.inst.createMap()
+                MapData.inst.createMap();
+                MapData.inst.executeFall();
                 TouchCrtl.inst.initTouch();
                 // this.initTestNode()
             }

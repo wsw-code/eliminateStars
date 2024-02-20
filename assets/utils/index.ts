@@ -5,6 +5,8 @@ import {  MapData } from '../scripts/mapdata';
 import { Cell } from '../scripts/Cell';
 import { AXLE_SIZE } from '../state';
 import { UITransform, Vec3, tween } from 'cc';
+import { Bomb } from '../scripts/Bomb';
+import { UINode } from '../ui-node';
 
 
 export class NodeCreateFactory extends Singleton {
@@ -108,6 +110,13 @@ export const findEliminateTree = (x:number,y:number) => {
 }
 
 
+export const createBomb = (pos:Vec3) => {
+  const node = Bomb.inst.createBomb();  
+  node.setPosition(pos)     
+  node.setParent(UINode.inst.eliminationContainer)
+}
+
+
 /**
  * 实现消除
  */
@@ -121,6 +130,7 @@ export const eliminateExe = (cellSet: Set<Cell> | null)=> {
               el.toggleLight();
               setTimeout(()=>{
                   el?.destroyCell();
+                  createBomb(el.cellCenterPos)
                   num++;
                   if(num === cellSet.size) {
                     res(null)

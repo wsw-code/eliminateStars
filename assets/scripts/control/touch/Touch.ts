@@ -1,4 +1,4 @@
-import { _decorator, Component, Node,NodeEventType,Vec2 } from 'cc';
+import { _decorator,NodeEventType,Vec2 } from 'cc';
 import { UINode } from '../../../ui-node';
 import Singleton from '../../../base/singleton';
 import { eliminateExe, eliminateFall, eliminateUpdatePos, findEliminateTree, positionToCoord } from '../../../utils';
@@ -17,13 +17,10 @@ export class TouchCrtl extends Singleton  {
 
     public pt:Vec2 = new Vec2()
 
-
     initTouch() {
 
         UINode.inst.eliminationContainer.on(NodeEventType.TOUCH_START,async (e)=>{
-         
             e.touch.getUILocation( this.pt );
-           
             const {x,y} = positionToCoord(this.pt.x,this.pt.y);
             const tree = findEliminateTree(x,y);
             if(tree) {

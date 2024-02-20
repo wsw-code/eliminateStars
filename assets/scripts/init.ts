@@ -8,6 +8,8 @@ import { TouchCrtl } from './control/touch/Touch';
 import { tesAnimationClip } from './animationClip/eliminate';
 import {lightAnimationClip} from './animationClip/light'
 import { Dir } from '../enum';
+import { DieClip } from './animationClip/die';
+import { Bomb } from './Bomb';
 
 @ccclass('init')
 export class Init extends Component {
@@ -35,6 +37,8 @@ export class Init extends Component {
         })
 
 
+
+        
     
 
     }

@@ -26,9 +26,12 @@ export class TouchCrtl extends Singleton  {
            
             const {x,y} = positionToCoord(this.pt.x,this.pt.y);
             const tree = findEliminateTree(x,y);
-            await eliminateExe(tree);
-            eliminateFall();
-            eliminateUpdatePos();
+            if(tree) {
+                await eliminateExe(tree);
+                eliminateFall();
+                eliminateUpdatePos();
+            }
+
         })
     }
 

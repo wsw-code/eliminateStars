@@ -42,7 +42,6 @@ export class Elimination {
       this.starNode.setParent(this.node);
       this.lightNode.setParent(this.node);
       this.node.setParent(UINode.inst.eliminationContainer);
-      console.log(this.node)
     }
   
     createNode() {
@@ -53,6 +52,7 @@ export class Elimination {
       this.setCommonUITransform(node);
       return node;
     }
+    
     createLightNode() {
       const node = new Node(NodeName.light)
       const sprite = node.addComponent(Sprite);

@@ -25,6 +25,5 @@ y.curve.assignSorted(vec3KeyFrames.map(([time, vec3]) => [time, { value: vec3.y 
 animationClip.addTrack(track);
 // animationClip.wrapMode = AnimationClip.WrapMode.Loop;
 
-console.log('animationClip',animationClip)
 
 export const tesAnimationClip = animationClip

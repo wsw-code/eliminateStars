@@ -37,12 +37,16 @@ export class UIData extends Singleton {
   /**
    * map数据 Map<图片名称，Sprite>
    */
-  public spriteMap:Map<string,SpriteFrame> = new Map()
+  public spriteMap:Map<string,Map<string,SpriteFrame>> = new Map()
 
   /**保存sprite数据 */
-  saveSpriteMap(list:SpriteFrame[]) {
+  saveSpriteMap(list:SpriteFrame[],name:string) {
+
+    if(!this.spriteMap.has(name)) {
+      this.spriteMap.set(name,new Map())
+    }
     list.forEach(el=>{
-      this.spriteMap.set(el.name,el)
+      this.spriteMap.get(name).set(el.name,el)
     })
   }
 

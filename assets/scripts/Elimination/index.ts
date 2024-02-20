@@ -6,7 +6,7 @@ import { UIData } from '../uidata';
 
 import { UINode } from '../../ui-node';
 import { coordToPosition, getCellPos, rnd } from '../../utils';
-import { NodeName, PathString } from '../../enum';
+import { Dir, NodeName, PathString } from '../../enum';
 
 import {FallClip} from '../animationClip/fall'
 
@@ -42,7 +42,6 @@ export class Elimination {
       this.starNode.setParent(this.node);
       this.lightNode.setParent(this.node);
       this.node.setParent(UINode.inst.eliminationContainer);
-      console.log(this.node)
     }
   
     createNode() {
@@ -56,7 +55,7 @@ export class Elimination {
     createLightNode() {
       const node = new Node(NodeName.light)
       const sprite = node.addComponent(Sprite);
-      sprite.spriteFrame = UIData.inst.spriteMap.get(PathString.block_light_hd)
+      sprite.spriteFrame = UIData.inst.spriteMap.get(Dir.elimination).get(PathString.block_light_hd)
       node.active = false;
       node.layer = 1 << Layers.nameToLayer('UI_2D');
       this.setChildUITransform(node);
@@ -68,7 +67,7 @@ export class Elimination {
     createStarNode() {
       const node = new Node(NodeName.star)
       const sprite = node.addComponent(Sprite);
-      sprite.spriteFrame = UIData.inst.spriteMap.get(this.kindId)
+      sprite.spriteFrame = UIData.inst.spriteMap.get(Dir.elimination).get(this.kindId)
       node.layer = 1 << Layers.nameToLayer('UI_2D');
       this.setChildUITransform(node);
       return node

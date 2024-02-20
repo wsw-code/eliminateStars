@@ -15,6 +15,14 @@ export enum NodeName {
 
 export enum PathString {
   /**消除物光圈图片名称 */
-  block_light_hd="block_light_hd"
+  block_light_hd="block_light_hd",
+
+}
+
+
+
+export enum Dir {
+  elimination="texture/elimination",
+  eliminateDie="texture/eliminateDie"
 }
 

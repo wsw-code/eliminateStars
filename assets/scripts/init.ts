@@ -7,26 +7,51 @@ import {MapData} from './mapdata';
 import { TouchCrtl } from './control/touch/Touch';
 import { tesAnimationClip } from './animationClip/eliminate';
 import {lightAnimationClip} from './animationClip/light'
+import { Dir } from '../enum';
 
 @ccclass('init')
 export class Init extends Component {
 
-    start() {
+    async start() {
 
 
-        resources.loadDir('texture',SpriteFrame,(err,data)=>{
-          
-            if(!err) {
-                UIData.inst.saveSpriteMap(data);
-                this.initNode();
-                MapData.inst.createMap();
-                MapData.inst.executeFall();
-                TouchCrtl.inst.initTouch();
-                // this.initTestNode()
-            }
+        // resources.loadDir('texture',SpriteFrame,(err,data)=>{
+        //     console.log(data);
+        //     if(!err) {
+        //         (data);
+
+        //         // this.initTestNode()
+        //     }
+        // }) 
+
+        Promise.all([
+            this.spriteFrameLoad(Dir.elimination,UIData.inst.saveSpriteMap.bind(UIData.inst)),
+            this.spriteFrameLoad(Dir.eliminateDie,UIData.inst.saveSpriteMap.bind(UIData.inst))
+        ]).then(()=>{
+            this.initNode();
+            MapData.inst.createMap();
+            MapData.inst.executeFall();
+            TouchCrtl.inst.initTouch();
         })
 
-        
+
+    
+
+    }
+
+
+    async spriteFrameLoad(path:string,cb:(data:SpriteFrame[],name:string)=>void) {
+
+        return new Promise((res,rej)=>{
+            resources.loadDir(path,SpriteFrame,(err,data)=>{
+                if(!err) {
+                    res(data)
+                    cb(data,path);
+                }
+            }) 
+        })
+
+
     }
 
     initWrapperNode() {
@@ -46,7 +71,7 @@ export class Init extends Component {
         const node = new Node('light')
         const transform = node.addComponent(UITransform);
         const sprite = node.addComponent(Sprite);
-        sprite.spriteFrame = UIData.inst.spriteMap.get('block_light_hd')
+        sprite.spriteFrame = UIData.inst.spriteMap.get(Dir.elimination).get('block_light_hd')
         transform.width = 100;
         transform.height = 100;
         node.active = false
@@ -65,7 +90,7 @@ export class Init extends Component {
       
     
         node.setPosition(0,0)
-        sprite.spriteFrame = UIData.inst.spriteMap.get('red')
+        sprite.spriteFrame = UIData.inst.spriteMap.get(Dir.elimination).get('red')
         // transform.setAnchorPoint(0, 1)
         node.layer = 1 << Layers.nameToLayer('UI_2D');
         

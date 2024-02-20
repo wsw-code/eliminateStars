@@ -52,6 +52,7 @@ export class Elimination {
       this.setCommonUITransform(node);
       return node;
     }
+    
     createLightNode() {
       const node = new Node(NodeName.light)
       const sprite = node.addComponent(Sprite);

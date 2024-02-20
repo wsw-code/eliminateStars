@@ -7,7 +7,7 @@ import {AXLE_SIZE} from '../../state';
 import {  forEachCell, rnd } from '../../utils';
 import {Cell} from '../Cell'
 import { Elimination } from '../Elimination';
-import { FallCtrl } from '../control/FallCtrl';
+
 
 
 export class MapData extends Singleton {
@@ -57,7 +57,6 @@ export class MapData extends Singleton {
 
 
   createMap() {
-    // let delay = 0;
     for (let y = 0; y < AXLE_SIZE; y++) {
       this.grid.push([]);
       for (let x = 0; x < AXLE_SIZE; x++) {
@@ -65,9 +64,7 @@ export class MapData extends Singleton {
         const cell = new Cell({x,y});
         cell.elimination = new Elimination({x,y},kindId);
         this.grid[y].push(cell);
-        // this.executeFall(cell,delay);
       }
-      // delay += 0.09
     }
   }
 
@@ -88,7 +85,6 @@ export class MapData extends Singleton {
       const startPos = new Vec3( cell.cellPos.x , UIData.inst.fallStartY);
       const endPos = cell.cellPos;
       node.setPosition(startPos);
-
       const duration = Math.abs(( endPos.y - startPos.y  )) / this.fallSpeed;
       promiseArr.push((()=>{
         return new Promise((res)=>{
@@ -98,8 +94,6 @@ export class MapData extends Singleton {
       })
       })())
     })
-
-
     Promise.all(promiseArr)
     .then(()=>{
       console.log('完成下落')

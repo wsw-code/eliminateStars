@@ -222,3 +222,28 @@ export const getCellPos = (x,y)=> {
   const _pos = coordToPosition(x,y);
   return new Vec3(_pos.x,_pos.y);
 }
+
+/**实现合并效果 */
+export const merge = () => {
+  /**获取底层 */
+  const bottomCell = MapData.inst.grid[0];
+  const viewList:{x:number,y:number}[] = []
+  for (let i = 0; i < bottomCell.length; i++) {
+    const cell = bottomCell[i];
+
+    if(!cell.elimination) {
+      viewList.push(cell.coord);
+    } else {
+      if(viewList.length) {
+        const {x} = viewList.shift()
+        for (let j = 0; j < AXLE_SIZE; j++) {
+          MapData.inst.grid[j][x].elimination = MapData.inst.grid[j][i].elimination;
+          MapData.inst.grid[j][i].elimination = null;
+          viewList.push({x:i,y:j});
+        }
+      }
+    }
+
+  }
+
+}

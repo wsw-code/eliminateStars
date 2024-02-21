@@ -1,5 +1,5 @@
 
-import {Vec3} from 'cc'
+import {AnimationClip, Vec3} from 'cc'
 
 
 import { coordToPosition, rnd } from '../../utils';
@@ -57,9 +57,9 @@ export class Cell {
   }
 
   
-  playFall() {
-    this.elimination.animationComponent.defaultClip = FallClip.inst.animationClip;
-    this.elimination.animationComponent.play();
+  playFall(clip:AnimationClip=FallClip.inst.animationClip) {
+    this.elimination.animationComponent.defaultClip = clip;
+    return this.elimination.playAnimation()
   }
 
 

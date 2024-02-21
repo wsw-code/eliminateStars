@@ -28,6 +28,8 @@ export class Elimination {
   
     /**动画实例 */
     animationComponent:Animation;
+
+    resolve:(value?: unknown) => void
   
     get cellPos() {
         return getCellPos(this.crood.x,this.crood.y)
@@ -42,6 +44,21 @@ export class Elimination {
       this.starNode.setParent(this.node);
       this.lightNode.setParent(this.node);
       this.node.setParent(UINode.inst.eliminationContainer);
+      this.animationListener();
+    }
+
+
+    animationListener() {
+      this.animationComponent.on(Animation.EventType.FINISHED,()=>{
+        this.resolve();
+      })
+    }
+
+    playAnimation() {
+      this.animationComponent.play();
+      return new Promise((resolve)=>{
+        this.resolve = resolve;
+      })
     }
   
     createNode() {
@@ -62,6 +79,7 @@ export class Elimination {
       this.setChildUITransform(node);
       return node;
     }
+
 
 
 

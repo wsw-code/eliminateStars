@@ -191,23 +191,23 @@ export const eliminateFall = () => {
  * 消除物更新下落位置
  */
 export const eliminateUpdatePos = () => {
-  
+  const promiseList:Promise<Cell>[] = []
   forEachCell((cell)=>{
-
     const {elimination,cellPos} = cell;
-
-    if(elimination && cellPos.y !== elimination.node.position.y) {
-      // elimination.node.setPosition(cellPos);
-      const duration = ( elimination.node.position.y - cellPos.y ) / 2500;
-      tween( elimination.node ).to( duration , { position : cell.cellPos } ).call( ()=>{
-        // console.log(node.position.x,node.position.y)
-        cell.playFall();
-       } ).start() ; 
+    if(elimination && (cellPos.y !== elimination.node.position.y || cellPos.x !== elimination.node.position.x)) {
+      const gap = Math.abs(elimination.node.position.y - cellPos.y) || Math.abs(elimination.node.position.x - cellPos.x)
+      const duration = gap / 2500;
+      promiseList.push(
+        new Promise((res,rej)=>{
+          tween( elimination.node ).to( duration , { position : cell.cellPos } ).call(()=>{
+            res(cell)
+           } ).start() ;
+        })
+      )
     }
-
-
   })
 
+  return Promise.all(promiseList)
 
 }
 
@@ -227,20 +227,20 @@ export const getCellPos = (x,y)=> {
 export const merge = () => {
   /**获取底层 */
   const bottomCell = MapData.inst.grid[0];
-  const viewList:{x:number,y:number}[] = []
+  const viewList:number[] = []
   for (let i = 0; i < bottomCell.length; i++) {
     const cell = bottomCell[i];
-
+    console.log('viewList',viewList);
     if(!cell.elimination) {
-      viewList.push(cell.coord);
+      viewList.push(cell.coord.x);
     } else {
       if(viewList.length) {
-        const {x} = viewList.shift()
+        const x = viewList.shift()
         for (let j = 0; j < AXLE_SIZE; j++) {
           MapData.inst.grid[j][x].elimination = MapData.inst.grid[j][i].elimination;
           MapData.inst.grid[j][i].elimination = null;
-          viewList.push({x:i,y:j});
         }
+        viewList.push(i)
       }
     }
 

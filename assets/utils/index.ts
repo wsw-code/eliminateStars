@@ -125,7 +125,7 @@ export const eliminateExe = (cellSet: Set<Cell> | null)=> {
     try {
       let num = 0;
       if(cellSet?.size>1) {     
-          [...cellSet].forEach((el,index)=>{
+          Array.from(cellSet).forEach((el,index)=>{
               let _delay = index*40;
               el.toggleLight();
               setTimeout(()=>{
@@ -190,13 +190,13 @@ export const eliminateFall = () => {
 /**
  * 消除物更新下落位置
  */
-export const eliminateUpdatePos = () => {
+export const eliminateUpdatePos = (speed:number=2500) => {
   const promiseList:Promise<Cell>[] = []
   forEachCell((cell)=>{
     const {elimination,cellPos} = cell;
     if(elimination && (cellPos.y !== elimination.node.position.y || cellPos.x !== elimination.node.position.x)) {
       const gap = Math.abs(elimination.node.position.y - cellPos.y) || Math.abs(elimination.node.position.x - cellPos.x)
-      const duration = gap / 2500;
+      const duration = gap / speed;
       promiseList.push(
         new Promise((res,rej)=>{
           tween( elimination.node ).to( duration , { position : cell.cellPos } ).call(()=>{
@@ -230,7 +230,6 @@ export const merge = () => {
   const viewList:number[] = []
   for (let i = 0; i < bottomCell.length; i++) {
     const cell = bottomCell[i];
-    console.log('viewList',viewList);
     if(!cell.elimination) {
       viewList.push(cell.coord.x);
     } else {
@@ -246,4 +245,10 @@ export const merge = () => {
 
   }
 
+}
+
+
+export const getNumberFromString = (a: string) => {
+  let num = Number(a.replace(/[^0-9]/gi, ''))
+  return num ? num : 0
 }

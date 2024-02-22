@@ -9,6 +9,7 @@ import Singleton from "../../../base/singleton";
 
 import { Dir, NodeName } from "../../../enum";
 import { UIData } from "../../uidata";
+import { getNumberFromString } from "../../../utils";
 
 
 
@@ -21,12 +22,12 @@ export class DieClip extends Singleton {
     animationClip:AnimationClip = null;
 
     get duration() {
-
+        console.log('spriteFrameList',this.spriteFrameList)
         return this.spriteFrameList.length*this.speed
     }
 
     get spriteFrameList() {
-        return [...UIData.inst.spriteMap.get(Dir.eliminateDie).values()]
+        return Array.from(UIData.inst.spriteMap.get(Dir.eliminateDie).values())  
     }
 
     /**帧数 */
@@ -42,14 +43,17 @@ export class DieClip extends Singleton {
         this.animationClip = new AnimationClip();
         this.track = new animation.ObjectTrack()
         this.track.path =  new animation.TrackPath().toComponent(Sprite).toProperty('spriteFrame')
-        const frames:Array<[number, SpriteFrame]> = this.spriteFrameList.map((el, index) => {
-            console.log(this.speed)
+        const frames:Array<[number, SpriteFrame]> = this.spriteFrameList.sort((a,b)=>getNumberFromString(a.name)-getNumberFromString(b.name)).map((el, index) => {
             return [this.speed * index, el]
         });
-       
+
+     
         this.track.channel.curve.assignSorted(frames)
         this.animationClip.addTrack(this.track);
+        this.animationClip.wrapMode = AnimationClip.WrapMode.Normal;
+
         this.animationClip.duration = this.duration; 
+
     }
 
 }

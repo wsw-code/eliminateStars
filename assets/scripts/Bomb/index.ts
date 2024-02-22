@@ -27,7 +27,9 @@ export class Bomb extends Singleton {
         transform.height = 100;
         this.animationComponent = node.addComponent(Animation);
         this.animationComponent.defaultClip = DieClip.inst.animationClip;
+        
         this.animationComponent.on(Animation.EventType.FINISHED,()=>{
+            console.log('destory')
             node?.destroy();
         })
 

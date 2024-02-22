@@ -5,11 +5,8 @@ import { UIData } from './uidata';
 
 import {MapData} from './mapdata';
 import { TouchCrtl } from './control/touch/Touch';
-import { tesAnimationClip } from './animationClip/eliminate';
 import {lightAnimationClip} from './animationClip/light'
 import { Dir } from '../enum';
-import { DieClip } from './animationClip/die';
-import { Bomb } from './Bomb';
 
 @ccclass('init')
 export class Init extends Component {
@@ -17,14 +14,6 @@ export class Init extends Component {
     async start() {
 
 
-        // resources.loadDir('texture',SpriteFrame,(err,data)=>{
-        //     console.log(data);
-        //     if(!err) {
-        //         (data);
-
-        //         // this.initTestNode()
-        //     }
-        // }) 
 
         Promise.all([
             this.spriteFrameLoad(Dir.elimination,UIData.inst.saveSpriteMap.bind(UIData.inst)),

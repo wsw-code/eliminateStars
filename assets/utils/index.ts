@@ -4,7 +4,8 @@ import { UIData } from '../scripts/uidata';
 import {  MapData } from '../scripts/mapdata';
 import { Cell } from '../scripts/Cell';
 import { AXLE_SIZE } from '../state';
-import { UITransform, Vec3, tween } from 'cc';
+import { Asset, AudioClip, AudioSource, SpriteFrame, UITransform, Vec3, resources, tween } from 'cc';
+
 
 
 export class NodeCreateFactory extends Singleton {
@@ -211,4 +212,73 @@ export const rnd = ( minNum : number , maxNum : number ) =>
 export const getCellPos = (x,y)=> {
   const _pos = coordToPosition(x,y);
   return new Vec3(_pos.x,_pos.y);
+}
+
+/**实现合并效果 */
+export const merge = () => {
+  /**获取底层 */
+  const bottomCell = MapData.inst.grid[0];
+  const viewList:number[] = []
+  for (let i = 0; i < bottomCell.length; i++) {
+    const cell = bottomCell[i];
+
+    if(!cell.elimination) {
+      viewList.push(cell.coord.x);
+    } else {
+      if(viewList.length) {
+        const x = viewList.shift()
+        for (let j = 0; j < AXLE_SIZE; j++) {
+          MapData.inst.grid[j][x].elimination = MapData.inst.grid[j][i].elimination;
+          MapData.inst.grid[j][i].elimination = null;
+        }
+        viewList.push(i)
+      }
+    }
+
+  }
+
+}
+
+
+export type ResProps = {
+  path:string,
+  type: typeof Asset,
+  cb:(data:Asset[],name:string)=>void
+}
+
+export const resLoad = ({path,cb,type=SpriteFrame}:ResProps) => {
+  return new Promise((res,rej)=>{
+    resources.loadDir(path,type,(err,data)=>{
+        if(!err) {
+            res(data)
+            cb(data,path);
+        }
+    }) 
+})
+}
+
+
+export const spriteFrameLoad = async (path:string,cb:(data:SpriteFrame[],name:string)=>void ) => {
+
+  return new Promise((res,rej)=>{
+      resources.loadDir(path,SpriteFrame,(err,data)=>{
+          if(!err) {
+              res(data)
+              cb(data,path);
+          }
+      }) 
+  })
+}
+
+
+export const audioLoad = async (path:string,cb:(data:AudioClip[],name:string)=>void) => {
+
+  return new Promise((res,rej)=>{
+      resources.loadDir(path,AudioClip,(err,data)=>{
+          if(!err) {
+              res(data)
+              cb(data,path);
+          }
+      }) 
+  })
 }

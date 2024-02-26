@@ -1,4 +1,4 @@
-import { _decorator, Component, Node,find, UITransform,Layers, Sprite, Color,Size,resources,SpriteFrame,Animation, Vec3 } from 'cc';
+import { _decorator, Component, Node,find, UITransform,Layers, Sprite, Color,Size,resources,SpriteFrame,Animation, Vec3, AudioClip } from 'cc';
 import {UINode} from '../ui-node'
 const { ccclass } = _decorator;
 import { UIData } from './uidata';
@@ -7,6 +7,9 @@ import {MapData} from './mapdata';
 import { TouchCrtl } from './control/touch/Touch';
 import { tesAnimationClip } from './animationClip/eliminate';
 import {lightAnimationClip} from './animationClip/light'
+import { Dir } from '../enum';
+import { resLoad, spriteFrameLoad } from '../utils';
+import { AudioRes } from './AudioRes';
 
 @ccclass('init')
 export class Init extends Component {
@@ -14,20 +17,45 @@ export class Init extends Component {
     start() {
 
 
-        resources.loadDir('texture',SpriteFrame,(err,data)=>{
-          
-            if(!err) {
-                UIData.inst.saveSpriteMap(data);
-                this.initNode();
-                MapData.inst.createMap();
-                MapData.inst.executeFall();
-                TouchCrtl.inst.initTouch();
-                // this.initTestNode()
-            }
+        // resources.loadDir('texture',SpriteFrame,(err,data)=>{
+        //     console.log(data);
+        //     if(!err) {
+        //         (data);
+
+        //         // this.initTestNode()
+        //     }
+        // }) 
+        this.initNode();
+        Promise.all([
+            resLoad({
+                path:Dir.elimination,
+                cb:UIData.inst.saveSpriteMap.bind(UIData.inst),
+                type:SpriteFrame
+            }),
+            resLoad({
+                path:Dir.eliminateDie,
+                cb:UIData.inst.saveSpriteMap.bind(UIData.inst),
+                type:SpriteFrame
+            }),
+            resLoad({
+                path:Dir.audioRes,
+                cb:AudioRes.inst.saveAudioMap.bind(AudioRes.inst),
+                type:AudioClip
+            }),
+            // spriteFrameLoad(Dir.audioRes,UIData.inst.saveSpriteMap.bind(UIData.inst)),
+        ]).then(()=>{
+            
+            MapData.inst.createMap();
+            MapData.inst.executeFall();
+            TouchCrtl.inst.initTouch();
         })
 
         
+    
+
     }
+
+
 
     initWrapperNode() {
         const node = new Node('wrapper')

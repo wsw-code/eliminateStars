@@ -6,6 +6,9 @@ import { coordToPosition, rnd } from '../../utils';
 
 import { Elimination } from '../Elimination';
 import { FallClip } from '../animationClip/fall';
+import { UIData } from '../uidata';
+import { AudioRes } from '../AudioRes';
+import { AudioPath } from '../../enum';
 
 
 
@@ -45,6 +48,7 @@ export class Cell {
   destroyCell() {
     this.elimination?.node?.destroy();
     this.elimination = null;
+    AudioRes.inst.play(AudioPath.pop_star)
   }
 
   toggleLight() {

@@ -4,9 +4,10 @@ import { UIData } from '../scripts/uidata';
 import {  MapData } from '../scripts/mapdata';
 import { Cell } from '../scripts/Cell';
 import { AXLE_SIZE } from '../state';
-import { UITransform, Vec3, tween } from 'cc';
 import { Bomb } from '../scripts/Bomb';
 import { UINode } from '../ui-node';
+import { Asset, AudioClip, AudioSource, SpriteFrame, UITransform, Vec3, resources, tween } from 'cc';
+
 
 
 export class NodeCreateFactory extends Singleton {
@@ -248,7 +249,45 @@ export const merge = () => {
 }
 
 
-export const getNumberFromString = (a: string) => {
-  let num = Number(a.replace(/[^0-9]/gi, ''))
-  return num ? num : 0
+export type ResProps = {
+  path:string,
+  type: typeof Asset,
+  cb:(data:Asset[],name:string)=>void
+}
+
+export const resLoad = ({path,cb,type=SpriteFrame}:ResProps) => {
+  return new Promise((res,rej)=>{
+    resources.loadDir(path,type,(err,data)=>{
+        if(!err) {
+            res(data)
+            cb(data,path);
+        }
+    }) 
+})
+}
+
+
+export const spriteFrameLoad = async (path:string,cb:(data:SpriteFrame[],name:string)=>void ) => {
+
+  return new Promise((res,rej)=>{
+      resources.loadDir(path,SpriteFrame,(err,data)=>{
+          if(!err) {
+              res(data)
+              cb(data,path);
+          }
+      }) 
+  })
+}
+
+
+export const audioLoad = async (path:string,cb:(data:AudioClip[],name:string)=>void) => {
+
+  return new Promise((res,rej)=>{
+      resources.loadDir(path,AudioClip,(err,data)=>{
+          if(!err) {
+              res(data)
+              cb(data,path);
+          }
+      }) 
+  })
 }

@@ -1,4 +1,4 @@
-import { _decorator, Component, Node,find, UITransform,Layers, Sprite, Color,Size,resources,SpriteFrame,Animation, Vec3 } from 'cc';
+import { _decorator, Component, Node,find, UITransform,Layers, Sprite, Color,Size,resources,SpriteFrame,Animation, Vec3, AudioClip } from 'cc';
 import {UINode} from '../ui-node'
 const { ccclass } = _decorator;
 import { UIData } from './uidata';
@@ -7,6 +7,8 @@ import {MapData} from './mapdata';
 import { TouchCrtl } from './control/touch/Touch';
 import {lightAnimationClip} from './animationClip/light'
 import { Dir } from '../enum';
+import { resLoad, spriteFrameLoad } from '../utils';
+import { AudioRes } from './AudioRes';
 
 @ccclass('init')
 export class Init extends Component {
@@ -14,12 +16,34 @@ export class Init extends Component {
     async start() {
 
 
+        // resources.loadDir('texture',SpriteFrame,(err,data)=>{
+        //     console.log(data);
+        //     if(!err) {
+        //         (data);
 
+        //         // this.initTestNode()
+        //     }
+        // }) 
+        this.initNode();
         Promise.all([
-            this.spriteFrameLoad(Dir.elimination,UIData.inst.saveSpriteMap.bind(UIData.inst)),
-            this.spriteFrameLoad(Dir.eliminateDie,UIData.inst.saveSpriteMap.bind(UIData.inst))
+            resLoad({
+                path:Dir.elimination,
+                cb:UIData.inst.saveSpriteMap.bind(UIData.inst),
+                type:SpriteFrame
+            }),
+            resLoad({
+                path:Dir.eliminateDie,
+                cb:UIData.inst.saveSpriteMap.bind(UIData.inst),
+                type:SpriteFrame
+            }),
+            resLoad({
+                path:Dir.audioRes,
+                cb:AudioRes.inst.saveAudioMap.bind(AudioRes.inst),
+                type:AudioClip
+            }),
+            // spriteFrameLoad(Dir.audioRes,UIData.inst.saveSpriteMap.bind(UIData.inst)),
         ]).then(()=>{
-            this.initNode();
+            
             MapData.inst.createMap();
             MapData.inst.executeFall();
             TouchCrtl.inst.initTouch();
@@ -33,19 +57,6 @@ export class Init extends Component {
     }
 
 
-    async spriteFrameLoad(path:string,cb:(data:SpriteFrame[],name:string)=>void) {
-
-        return new Promise((res,rej)=>{
-            resources.loadDir(path,SpriteFrame,(err,data)=>{
-                if(!err) {
-                    res(data)
-                    cb(data,path);
-                }
-            }) 
-        })
-
-
-    }
 
     initWrapperNode() {
         const node = new Node('wrapper')

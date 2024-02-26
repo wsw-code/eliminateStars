@@ -23,6 +23,12 @@ export enum PathString {
 
 export enum Dir {
   elimination="texture/elimination",
-  eliminateDie="texture/eliminateDie"
+  eliminateDie="texture/eliminateDie",
+  audioRes="audio"
 }
 
+
+export enum AudioPath {
+  /**星星消除声音 */
+  pop_star='pop_star'
+}

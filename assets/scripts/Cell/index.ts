@@ -1,12 +1,14 @@
 
-import {AnimationClip, Vec3} from 'cc'
+import {AnimationClip, Vec3} from 'cc';
 
 
-import { coordToPosition, rnd } from '../../utils';
+import { coordToPosition } from '../../utils';
 
 import { Elimination } from '../Elimination';
 import { FallClip } from '../animationClip/fall';
 import { UIData } from '../uidata';
+import { AudioRes } from '../AudioRes';
+import { AudioPath } from '../../enum';
 
 
 
@@ -50,6 +52,7 @@ export class Cell {
   destroyCell() {
     this.elimination?.node?.destroy();
     this.elimination = null;
+    AudioRes.inst.play(AudioPath.pop_star)
   }
 
   toggleLight() {

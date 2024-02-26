@@ -291,3 +291,10 @@ export const audioLoad = async (path:string,cb:(data:AudioClip[],name:string)=>v
       }) 
   })
 }
+
+
+
+export const getNumberFromString = (a: string) => {
+  let num = Number(a.replace(/[^0-9]/gi, ''))
+  return num ? num : 0
+}

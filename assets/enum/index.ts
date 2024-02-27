@@ -30,5 +30,7 @@ export enum Dir {
 
 export enum AudioPath {
   /**星星消除声音 */
-  pop_star='pop_star'
+  pop_star='pop_star',
+  /**按钮点击声音 */
+  btnClick='btnClick'
 }

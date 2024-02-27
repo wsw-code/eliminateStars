@@ -15,6 +15,12 @@ export class UINode extends Singleton {
 
     public gameNode:Node = null;
 
+    /**设置按钮 */
+    public settingBtn:Node = null;
+
+    /**设置弹窗 */
+    public settingPopup:Node = null
+
     public _eliminationContainer:Node = null
 
     get eliminationContainer() {
@@ -31,6 +37,15 @@ export class UINode extends Singleton {
         transform.setAnchorPoint(0,0);
         node.setPosition(new Vec3(-UIData.inst.worldWidth/2,-UIData.inst.worldHeight/2));
         return node;
+    }
+
+    /**初始化节点并保存 */
+    initNode() {
+        this.root = find('Canvas');
+        this.gameNode = find('Canvas/GameNode');
+        this.eliminationContainer = find('Canvas/GameNode/EliminationContainer');
+        this.settingBtn = find('Canvas/GameNode/Pause');
+        this.settingPopup = find('Canvas/Popup/Setting');
     }
 
 

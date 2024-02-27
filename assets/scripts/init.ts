@@ -9,6 +9,7 @@ import {lightAnimationClip} from './animationClip/light'
 import { Dir } from '../enum';
 import { resLoad, spriteFrameLoad } from '../utils';
 import { AudioRes } from './AudioRes';
+import { SettingBtn } from './control/SettingBtn';
 
 @ccclass('init')
 export class Init extends Component {
@@ -16,15 +17,7 @@ export class Init extends Component {
     async start() {
 
 
-        // resources.loadDir('texture',SpriteFrame,(err,data)=>{
-        //     console.log(data);
-        //     if(!err) {
-        //         (data);
-
-        //         // this.initTestNode()
-        //     }
-        // }) 
-        this.initNode();
+        UINode.inst.initNode();
         Promise.all([
             resLoad({
                 path:Dir.elimination,
@@ -47,14 +40,21 @@ export class Init extends Component {
             MapData.inst.createMap();
             MapData.inst.executeFall();
             TouchCrtl.inst.initTouch();
+     
+            SettingBtn.inst.init()
+
         })
 
 
 
         
+
+        
     
 
     }
+
+
 
 
 
@@ -115,17 +115,6 @@ export class Init extends Component {
         return node
 
     }
-
-
-
-
-    /**初始化节点并保存 */
-    initNode() {    
-        UINode.inst.root = find('Canvas');
-        UINode.inst.gameNode = find('Canvas/GameNode');
-        UINode.inst.eliminationContainer = find('Canvas/GameNode/EliminationContainer');
-    }
-
 
 
 

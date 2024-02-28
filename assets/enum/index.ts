@@ -24,7 +24,8 @@ export enum PathString {
 export enum Dir {
   elimination="texture/elimination",
   eliminateDie="texture/eliminateDie",
-  audioRes="audio"
+  audioRes="audio",
+  prefabs="prefabs"
 }
 
 
@@ -33,4 +34,12 @@ export enum AudioPath {
   pop_star='pop_star',
   /**按钮点击声音 */
   btnClick='btnClick'
+}
+
+
+export enum PrefabPath {
+  /**设定按钮 */
+  Setting="Setting",
+  /**遮罩 */
+  Mask="Mask"
 }

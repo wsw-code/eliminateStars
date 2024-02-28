@@ -1,4 +1,4 @@
-import { _decorator, Component, Node,find, UITransform,Layers, Sprite, Color,Size,resources,SpriteFrame,Animation, Vec3, AudioClip } from 'cc';
+import { _decorator, Component, Node,find, UITransform,Layers, Sprite, Color,Size,resources,SpriteFrame,Animation, Vec3, AudioClip, Prefab } from 'cc';
 import {UINode} from '../ui-node'
 const { ccclass } = _decorator;
 import { UIData } from './uidata';
@@ -10,6 +10,7 @@ import { Dir } from '../enum';
 import { resLoad, spriteFrameLoad } from '../utils';
 import { AudioRes } from './AudioRes';
 import { SettingBtn } from './control/SettingBtn';
+import { PrefabRes } from './Prefabs';
 
 @ccclass('init')
 export class Init extends Component {
@@ -18,6 +19,7 @@ export class Init extends Component {
 
 
         UINode.inst.initNode();
+        this.loadAudio();
         Promise.all([
             resLoad({
                 path:Dir.elimination,
@@ -30,17 +32,14 @@ export class Init extends Component {
                 type:SpriteFrame
             }),
             resLoad({
-                path:Dir.audioRes,
-                cb:AudioRes.inst.saveAudioMap.bind(AudioRes.inst),
-                type:AudioClip
+                path:Dir.prefabs,
+                cb:PrefabRes.inst.savePrefabMap.bind(PrefabRes.inst),
+                type:Prefab
             }),
-            // spriteFrameLoad(Dir.audioRes,UIData.inst.saveSpriteMap.bind(UIData.inst)),
         ]).then(()=>{
-            
             MapData.inst.createMap();
             MapData.inst.executeFall();
             TouchCrtl.inst.initTouch();
-     
             SettingBtn.inst.init()
 
         })
@@ -56,7 +55,13 @@ export class Init extends Component {
 
 
 
-
+    loadAudio() {
+        resLoad({
+            path:Dir.audioRes,
+            cb:AudioRes.inst.saveAudioMap.bind(AudioRes.inst),
+            type:AudioClip
+        })
+    }
 
     initWrapperNode() {
         const node = new Node('wrapper')

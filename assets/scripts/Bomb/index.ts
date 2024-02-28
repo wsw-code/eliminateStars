@@ -29,10 +29,8 @@ export class Bomb extends Singleton {
         this.animationComponent.defaultClip = DieClip.inst.animationClip;
         
         this.animationComponent.on(Animation.EventType.FINISHED,()=>{
-            console.log('destory')
             node?.destroy();
         })
-
         this.animationComponent.playOnLoad = true
 
         return node;

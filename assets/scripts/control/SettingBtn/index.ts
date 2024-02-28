@@ -3,8 +3,9 @@ import { UINode } from "../../../ui-node";
 import {Node} from 'cc';
 import { State } from "../../State";
 import { AudioRes } from "../../AudioRes";
-import { AudioPath } from "../../../enum";
+import { AudioPath, PrefabPath } from "../../../enum";
 import { Popup } from "../../Popup";
+import { PrefabRes } from "../../Prefabs";
 
 
 /**
@@ -22,9 +23,9 @@ export class SettingBtn extends Singleton {
                 AudioRes.inst.play(AudioPath.btnClick)
             }
 
-            UINode.inst.settingPopup.active = true;
+            // UINode.inst.settingPopup.active = true;
 
-            Popup.inst.createMask()
+            Popup.inst.show(PrefabRes.inst.prefabMap.get(PrefabPath.Setting));
         })
 
 

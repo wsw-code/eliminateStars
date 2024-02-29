@@ -1,4 +1,4 @@
-import { Prefab, instantiate,Node, Vec3, tween } from "cc";
+import { Prefab, instantiate,Node, Vec3, tween, BlockInputEvents } from "cc";
 import { PopupPool } from "../PopupPool";
 import { PrefabRes } from "../Prefabs";
 import { UINode } from "../../ui-node";
@@ -23,9 +23,11 @@ export class Popup  {
 
   createPopup() {
       this.root = new Node();
+    
       this.maskNode = this.createMask();
       this.maskNode.setParent(this.root);
       this.popupContentNode = instantiate(this.prefab);
+      this.popupContentNode.addComponent(BlockInputEvents);
       this.popupContentNode.setParent(this.root);
       this.show();
   }
@@ -43,10 +45,11 @@ export class Popup  {
 
   initCloseEvent() {
       this.maskNode.on(Node.EventType.TOUCH_END,()=>{
-          this.closeAnimation(this.popupContentNode)
-          .then(()=>{
-              PopupPool.inst.popupNodePool.put(this.root);
-          })
+       
+        this.closeAnimation(this.popupContentNode)
+        .then(()=>{
+            PopupPool.inst.popupNodePool.put(this.root);
+        })
       });
   }
 

@@ -22,9 +22,6 @@ export class SettingBtn extends Singleton {
             if(State.inst.ableSound) {
                 AudioRes.inst.play(AudioPath.btnClick)
             }
-
-            // UINode.inst.settingPopup.active = true;
-
             PopupControl.inst.show(PrefabRes.inst.prefabMap.get(PrefabPath.Setting));
         })
 

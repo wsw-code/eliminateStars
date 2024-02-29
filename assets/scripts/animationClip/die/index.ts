@@ -22,7 +22,6 @@ export class DieClip extends Singleton {
     animationClip:AnimationClip = null;
 
     get duration() {
-        console.log('spriteFrameList',this.spriteFrameList)
         return this.spriteFrameList.length*this.speed
     }
 
@@ -46,12 +45,9 @@ export class DieClip extends Singleton {
         const frames:Array<[number, SpriteFrame]> = this.spriteFrameList.sort((a,b)=>getNumberFromString(a.name)-getNumberFromString(b.name)).map((el, index) => {
             return [this.speed * index, el]
         });
-
-     
         this.track.channel.curve.assignSorted(frames)
         this.animationClip.addTrack(this.track);
         this.animationClip.wrapMode = AnimationClip.WrapMode.Normal;
-
         this.animationClip.duration = this.duration; 
 
     }

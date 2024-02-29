@@ -38,7 +38,6 @@ export class AudioRes extends Singleton {
             player.play();
 
             player.node.on(AudioSource.EventType.ENDED, ()=>{
-                console.log('结束');
                 node?.destroy();
             }, this);
         }

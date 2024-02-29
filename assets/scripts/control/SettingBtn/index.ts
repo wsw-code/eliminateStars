@@ -4,7 +4,7 @@ import {Node} from 'cc';
 import { State } from "../../State";
 import { AudioRes } from "../../AudioRes";
 import { AudioPath, PrefabPath } from "../../../enum";
-import { Popup } from "../../Popup";
+import { PopupControl } from "../../PopupControl";
 import { PrefabRes } from "../../Prefabs";
 
 
@@ -25,7 +25,7 @@ export class SettingBtn extends Singleton {
 
             // UINode.inst.settingPopup.active = true;
 
-            Popup.inst.show(PrefabRes.inst.prefabMap.get(PrefabPath.Setting));
+            PopupControl.inst.show(PrefabRes.inst.prefabMap.get(PrefabPath.Setting));
         })
 
 

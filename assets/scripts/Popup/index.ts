@@ -27,7 +27,9 @@ export class Popup  {
       this.maskNode = this.createMask();
       this.maskNode.setParent(this.root);
       this.popupContentNode = instantiate(this.prefab);
-      this.popupContentNode.addComponent(BlockInputEvents);
+      console.log('node',this.popupContentNode);
+      console.log('node',this.maskNode)
+    //   this.popupContentNode.addComponent(BlockInputEvents);
       this.popupContentNode.setParent(this.root);
       this.show();
   }
@@ -45,11 +47,14 @@ export class Popup  {
 
   initCloseEvent() {
       this.maskNode.on(Node.EventType.TOUCH_END,()=>{
-       
         this.closeAnimation(this.popupContentNode)
         .then(()=>{
             PopupPool.inst.popupNodePool.put(this.root);
         })
+      });
+
+      this.popupContentNode.on(Node.EventType.TOUCH_END,()=>{
+        console.log(1111)
       });
   }
 
@@ -62,8 +67,8 @@ export class Popup  {
       return new Promise((res)=>{
           node.scale = new Vec3( 0.2 , 0.2 );
           tween( node ).sequence(
-              tween( node ).to( 0.1 , { scale : new Vec3( 1.1 , 1.1 ) } ) , 
-              tween( node ).to( 0.1 , { scale : new Vec3( 1 , 1 ) } ) , 
+              tween( node ).to( 0.15 , { scale : new Vec3( 1.1 , 1.1, 1 ) } ) , 
+              tween( node ).to( 0.1 , { scale : new Vec3( 1 , 1, 1 ) } ) , 
           )
           .call(()=>{
               res(null)

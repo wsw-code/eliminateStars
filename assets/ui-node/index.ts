@@ -21,7 +21,16 @@ export class UINode extends Singleton {
     /**设置弹窗 */
     public settingPopup:Node = null
 
-    public _eliminationContainer:Node = null
+    public _eliminationContainer:Node = null;
+
+
+
+    /**设置面板-音量按钮 */
+    public musicBtn:Node = null
+
+    /**设置面板-按钮声音按钮 */
+    public soundBtn:Node = null
+
 
     get eliminationContainer() {
         return this._eliminationContainer

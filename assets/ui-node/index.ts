@@ -32,6 +32,13 @@ export class UINode extends Singleton {
     public soundBtn:Node = null
 
 
+    /**设置面板-音量按钮关闭标识 */
+    public musicBtnOff:Node = null
+
+    /**设置面板-按钮声音关闭标识 */
+    public soundBtnOff:Node = null
+
+
     get eliminationContainer() {
         return this._eliminationContainer
     }

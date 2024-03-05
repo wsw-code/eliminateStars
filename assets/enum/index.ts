@@ -25,7 +25,8 @@ export enum Dir {
   elimination="texture/elimination",
   eliminateDie="texture/eliminateDie",
   audioRes="audio",
-  prefabs="prefabs"
+  prefabs="prefabs",
+  font="font"
 }
 
 
@@ -43,5 +44,7 @@ export enum PrefabPath {
   /**设定按钮 */
   Setting="Setting",
   /**遮罩 */
-  Mask="Mask"
+  Mask="Mask",
+  /**分数 */
+  Score="Score"
 }

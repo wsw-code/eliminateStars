@@ -38,6 +38,9 @@ export class UINode extends Singleton {
     /**设置面板-按钮声音关闭标识 */
     public soundBtnOff:Node = null
 
+    /**当前score */
+    public currentScore:Node = null;
+
 
     get eliminationContainer() {
         return this._eliminationContainer
@@ -62,6 +65,7 @@ export class UINode extends Singleton {
         this.eliminationContainer = find('Canvas/GameNode/EliminationContainer');
         this.settingBtn = find('Canvas/GameNode/Pause');
         this.settingPopup = find('Canvas/Popup/Setting');
+        this.currentScore = find('Canvas/GameNode/Setting/Panel/CurrentScore')
     }
 
 

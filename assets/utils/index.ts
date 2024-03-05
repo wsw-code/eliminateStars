@@ -7,6 +7,7 @@ import { AXLE_SIZE } from '../state';
 import { Bomb } from '../scripts/Bomb';
 import { UINode } from '../ui-node';
 import { Asset, AudioClip, AudioSource, SpriteFrame, UITransform, Vec3, resources, tween } from 'cc';
+import { Score } from '../scripts/Score';
 
 
 
@@ -130,7 +131,9 @@ export const eliminateExe = (cellSet: Set<Cell> | null)=> {
               let _delay = index*40;
               el.toggleLight();
               setTimeout(()=>{
+                  Score.inst.createScore(cellSet.size*5,el)
                   el?.destroyCell();
+                  
                   createBomb(el.cellCenterPos)
                   num++;
                   if(num === cellSet.size) {

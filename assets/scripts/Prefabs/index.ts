@@ -14,7 +14,9 @@ export class PrefabRes extends Singleton {
   savePrefabMap(prefabList:Prefab[]) {
     prefabList.forEach(el=>{
       this.prefabMap.set(el.name,el);
-    })
+    });
+
+
   }
 
 }

@@ -48,6 +48,7 @@ export class UIData extends Singleton {
     list.forEach(el=>{
       this.spriteMap.get(name).set(el.name,el)
     })
+
   }
 
   

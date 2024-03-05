@@ -9,6 +9,7 @@ import { FallClip } from '../animationClip/fall';
 import { UIData } from '../uidata';
 import { AudioRes } from '../AudioRes';
 import { AudioPath } from '../../enum';
+import { Score } from '../Score';
 
 
 
@@ -52,8 +53,10 @@ export class Cell {
   destroyCell() {
     this.elimination?.node?.destroy();
     this.elimination = null;
-    AudioRes.inst.play(AudioPath.pop_star)
+    AudioRes.inst.play(AudioPath.pop_star);
   }
+
+
 
   toggleLight() {
     this.elimination.lightNode.active = true

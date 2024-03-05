@@ -1,4 +1,4 @@
-import { _decorator, Component, Node,find, UITransform,Layers, Sprite, Color,Size,resources,SpriteFrame,Animation, Vec3, AudioClip, Prefab } from 'cc';
+import { _decorator, Component, Node,find, UITransform,Layers, Sprite, Color,Size,resources,SpriteFrame,Animation, Vec3, AudioClip, Prefab, Font } from 'cc';
 import {UINode} from '../ui-node'
 const { ccclass } = _decorator;
 import { UIData } from './uidata';

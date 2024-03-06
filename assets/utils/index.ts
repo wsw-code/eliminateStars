@@ -131,7 +131,7 @@ export const eliminateExe = (cellSet: Set<Cell> | null)=> {
               let _delay = index*40;
               el.toggleLight();
               setTimeout(()=>{
-                  Score.inst.createScore(cellSet.size*5,el)
+                  Score.inst.showScore(cellSet.size*5,el)
                   el?.destroyCell();
                   
                   createBomb(el.cellCenterPos)

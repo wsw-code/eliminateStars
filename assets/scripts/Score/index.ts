@@ -23,15 +23,16 @@ export class Score extends Singleton {
     }
 
     createScore(num:number,cell:Cell) {
-        const position = cell.cellCenterPos;
+       
       
-        const _pos = cell.elimination.node.getComponent(UITransform).convertToWorldSpaceAR(Vec3.ZERO);
+        const _pos = cell.elimination.node.getComponent(UITransform).convertToWorldSpaceAR(UINode.inst.eliminationContainer.position);
 
        
         console.log('_pos',_pos)
         const node = instantiate(PrefabRes.inst.prefabMap.get(PrefabPath.Score));
         node.getComponent(Label).string = num+'';
-        node.setPosition(position)
+        console.log(node);
+        node.setPosition(_pos)
         node.setParent(UINode.inst.gameNode);
 
     }

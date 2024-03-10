@@ -131,7 +131,9 @@ export const eliminateExe = (cellSet: Set<Cell> | null)=> {
               let _delay = index*40;
               el.toggleLight();
               setTimeout(()=>{
-                  Score.inst.showScore(cellSet.size*5,el)
+                  const targetNumber = cellSet.size*5;
+                  Score.inst.showScore(cellSet.size*5,el);
+                  Score.inst.numberRolling(targetNumber*cellSet.size)
                   el?.destroyCell();
                   
                   createBomb(el.cellCenterPos)

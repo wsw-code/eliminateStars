@@ -65,7 +65,8 @@ export class UINode extends Singleton {
         this.eliminationContainer = find('Canvas/GameNode/EliminationContainer');
         this.settingBtn = find('Canvas/GameNode/Pause');
         this.settingPopup = find('Canvas/Popup/Setting');
-        this.currentScore = find('Canvas/GameNode/Setting/Panel/CurrentScore')
+        this.currentScore = find('Canvas/GameNode/Panel/CurrentScore');
+        
     }
 
 

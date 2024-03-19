@@ -15,6 +15,22 @@ export class Score extends Singleton {
         return super.getInstance<Score>();
     }
 
+
+
+    _score:number = 0;
+
+    get score() {
+        return this._score
+    }
+
+    set score(val:number) {
+        this._score = val;
+        UINode.inst.currentScore.getComponent(Label).string = String(val);
+        // this.numberRolling()
+    }
+
+
+
     timer = null;
     ableAnimate:boolean = true;
 
@@ -63,7 +79,7 @@ export class Score extends Singleton {
             inst = UINode.inst.currentScore.addComponent(NumberRolling);
         }
 
-        inst.initRolling();
+        // inst.initRolling();
 
      
 

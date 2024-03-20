@@ -9,7 +9,7 @@ import { UINode } from '../ui-node';
 import { Asset, AudioClip, AudioSource, SpriteFrame, UITransform, Vec3, resources, tween } from 'cc';
 import { Score } from '../scripts/Score';
 
-
+import {State as PanelState} from '../scripts/Panel/State'
 
 export class NodeCreateFactory extends Singleton {
 
@@ -126,14 +126,17 @@ export const eliminateExe = (cellSet: Set<Cell> | null)=> {
   return new Promise(function(res,rej) {
     try {
       let num = 0;
-      if(cellSet?.size>1) {     
+      if(cellSet?.size>1) {   
+        const targetNumber = cellSet.size*5;  
           Array.from(cellSet).forEach((el,index)=>{
               let _delay = index*40;
               el.toggleLight();
               setTimeout(()=>{
-                  const targetNumber = cellSet.size*5;
+                  
                   Score.inst.showScore(cellSet.size*5,el);
-                  Score.inst.numberRolling(targetNumber*cellSet.size)
+                  // Score.inst.numberRolling(targetNumber*cellSet.size)
+                  
+
                   el?.destroyCell();
                   
                   createBomb(el.cellCenterPos)
@@ -144,6 +147,7 @@ export const eliminateExe = (cellSet: Set<Cell> | null)=> {
 
               },_delay)
           })
+          PanelState.inst.score.data+=targetNumber*cellSet.size
       } else {
         rej('没找到对应节点')
       }

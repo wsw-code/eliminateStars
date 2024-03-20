@@ -11,6 +11,7 @@ import { resLoad, spriteFrameLoad } from '../utils';
 import { AudioRes } from './AudioRes';
 import { SettingBtn } from './control/SettingBtn';
 import { PrefabRes } from './Prefabs';
+import { PanelEntry } from './Panel';
 
 @ccclass('init')
 export class Init extends Component {
@@ -41,7 +42,7 @@ export class Init extends Component {
             MapData.inst.executeFall();
             TouchCrtl.inst.initTouch();
             SettingBtn.inst.init()
-
+            PanelEntry.inst.init()
         })
 
 

@@ -7,7 +7,7 @@ import { Cell } from "../Cell";
 import { UIData } from "../uidata";
 import { NumberRolling } from "../NumberRolling";
 
-
+import {View as PanelView} from '../Panel/View'
 
 
 export class Score extends Singleton {
@@ -17,17 +17,6 @@ export class Score extends Singleton {
 
 
 
-    _score:number = 0;
-
-    get score() {
-        return this._score
-    }
-
-    set score(val:number) {
-        this._score = val;
-        UINode.inst.currentScore.getComponent(Label).string = String(val);
-        // this.numberRolling()
-    }
 
 
 
@@ -74,10 +63,10 @@ export class Score extends Singleton {
 
     numberRolling(targetNumber:number) {
 
-        let inst = UINode.inst.currentScore.getComponent(NumberRolling);
-        if(!inst) {
-            inst = UINode.inst.currentScore.addComponent(NumberRolling);
-        }
+        // let inst = UINode.inst.currentScore.getComponent(NumberRolling);
+        // if(!inst) {
+        //     inst = UINode.inst.currentScore.addComponent(NumberRolling);
+        // }
 
         // inst.initRolling();
 
@@ -89,7 +78,7 @@ export class Score extends Singleton {
      * 分数放大显示
      */
     scoreShowMore() {
-        const node = UINode.inst.currentScore;
+        const node = PanelView.inst.score_node;
         Tween.stopAllByTarget( node ) ;
         tween( node ).sequence(
 

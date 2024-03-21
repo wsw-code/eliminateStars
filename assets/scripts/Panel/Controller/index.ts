@@ -1,6 +1,7 @@
-import { Component, Label } from "cc"
+import { Component, Label, Sprite, tween } from "cc"
 import Singleton from "../../../base/singleton"
 import { View } from "../View"
+import { State } from "../State";
 
 export class Controller extends Component {
 
@@ -42,6 +43,23 @@ export class Controller extends Component {
         }
        
         View.inst.score_node.getComponent(Label).string = String(showNumber);
+    }
+
+
+
+    target_score_change(val:number) {
+        View.inst.target_score.getComponent(Label).string = val+'';
+    }
+
+
+
+    progess_bar_change(val:number) {
+        const sprite = View.inst.progess_bar.getComponent(Sprite);
+
+        const fillRange = val/State.inst.target_score.data
+
+        tween( sprite ).to( 0.5 , { fillRange : Number(fillRange.toFixed(2)) }  ).start() ; 
+
     }
 
 

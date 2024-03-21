@@ -4,11 +4,7 @@
 export class Stateton<T> {
 
 
-    _data:T
-
-    constructor(val:T) {
-        this._data = val
-    }
+    _data:T;
 
     get data() {
         return this._data
@@ -22,6 +18,12 @@ export class Stateton<T> {
             el(val,oldVal)
         })
     }
+
+    constructor(val:T) {
+        this._data = val;
+    }
+
+
 
     events:Set<(newVal:T,oldVal?:T)=>void> = new Set();
 

@@ -24,9 +24,17 @@ export enum PathString {
 export enum Dir {
   elimination="texture/elimination",
   eliminateDie="texture/eliminateDie",
+  common="texture/common",
   audioRes="audio",
   prefabs="prefabs",
   font="font"
+}
+
+export enum CommonSprite {
+  game_score1="game_score1",
+  game_score2="game_score2",
+  game_score3="game_score3",
+  game_score4="game_score4"
 }
 
 
@@ -36,7 +44,15 @@ export enum AudioPath {
   /**按钮点击声音 */
   btnClick='btnClick',
   /**背景音乐 */
-  bgm="bgm"
+  bgm="bgm",
+
+  /**评价1 */
+  combo_1="combo_1",
+  /**评价2 */
+  combo_2="combo_2",
+  /**评价3 */
+  combo_3="combo_3",
+
 }
 
 

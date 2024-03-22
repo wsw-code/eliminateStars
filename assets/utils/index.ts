@@ -10,6 +10,7 @@ import { Asset, AudioClip, AudioSource, SpriteFrame, UITransform, Vec3, resource
 import { Score } from '../scripts/Score';
 
 import {State as PanelState} from '../scripts/Panel/State'
+import { Evaluate } from '../scripts/Evaluate';
 
 export class NodeCreateFactory extends Singleton {
 
@@ -147,7 +148,8 @@ export const eliminateExe = (cellSet: Set<Cell> | null)=> {
 
               },_delay)
           })
-          PanelState.inst.score.data+=targetNumber*cellSet.size
+          PanelState.inst.score.data+=targetNumber*cellSet.size;
+          Evaluate.inst.show(cellSet.size);
       } else {
         rej('没找到对应节点')
       }

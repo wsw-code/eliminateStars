@@ -12,6 +12,7 @@ import { AudioRes } from './AudioRes';
 import { SettingBtn } from './control/SettingBtn';
 import { PrefabRes } from './Prefabs';
 import { PanelEntry } from './Panel';
+import { Evaluate } from './Evaluate';
 
 @ccclass('init')
 export class Init extends Component {
@@ -33,6 +34,11 @@ export class Init extends Component {
                 type:SpriteFrame
             }),
             resLoad({
+                path:Dir.common,
+                cb:UIData.inst.saveSpriteMap.bind(UIData.inst),
+                type:SpriteFrame
+            }),
+            resLoad({
                 path:Dir.prefabs,
                 cb:PrefabRes.inst.savePrefabMap.bind(PrefabRes.inst),
                 type:Prefab
@@ -42,13 +48,17 @@ export class Init extends Component {
             MapData.inst.executeFall();
             TouchCrtl.inst.initTouch();
             SettingBtn.inst.init()
-            PanelEntry.inst.init()
+            PanelEntry.inst.init();
+
+            console.log(AudioRes.inst.audioMap);
+            console.log(UIData.inst.spriteMap);
+            Evaluate.inst.show(1)
         })
 
 
 
         
-
+      
         
     
 

@@ -7,6 +7,7 @@ import {AXLE_SIZE} from '../../state';
 import {  forEachCell, rnd } from '../../utils';
 import {Cell} from '../Cell'
 import { Elimination } from '../Elimination';
+import { UINode } from '../../ui-node';
 
 
 
@@ -55,6 +56,16 @@ export class MapData extends Singleton {
     return Math.floor(Math.random()*this.colorList.length)
   }
 
+  initGameMap() {
+    this.reset();
+    this.createMap();
+    this.executeFall();
+  }
+
+  reset() {
+    this.grid = [];
+    UINode.inst.eliminationContainer.removeAllChildren()
+  }
 
   createMap() {
     for (let y = 0; y < AXLE_SIZE; y++) {

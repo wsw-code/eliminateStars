@@ -64,3 +64,9 @@ export enum PrefabPath {
   /**分数 */
   Score="Score"
 }
+
+
+
+export enum GlobalEvents {
+  popup_close=`popup_close`
+}

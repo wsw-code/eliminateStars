@@ -5,7 +5,7 @@ import { PrefabPath } from "../../enum";
 import { UINode } from "../../ui-node";
 import { Cell } from "../Cell";
 import { UIData } from "../uidata";
-import { NumberRolling } from "../NumberRolling";
+
 
 import {View as PanelView} from '../Panel/View'
 
@@ -61,18 +61,6 @@ export class Score extends Singleton {
         
     }
 
-    numberRolling(targetNumber:number) {
-
-        // let inst = UINode.inst.currentScore.getComponent(NumberRolling);
-        // if(!inst) {
-        //     inst = UINode.inst.currentScore.addComponent(NumberRolling);
-        // }
-
-        // inst.initRolling();
-
-     
-
-    }
 
     /**
      * 分数放大显示

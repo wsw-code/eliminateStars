@@ -2,7 +2,7 @@ import { Prefab, instantiate,Node, Vec3, tween, BlockInputEvents } from "cc";
 import { PopupPool } from "../PopupPool";
 import { PrefabRes } from "../Prefabs";
 import { UINode } from "../../ui-node";
-import { PrefabPath } from "../../enum";
+import { GlobalEvents, PrefabPath } from "../../enum";
 
 
 
@@ -27,9 +27,6 @@ export class Popup  {
       this.maskNode = this.createMask();
       this.maskNode.setParent(this.root);
       this.popupContentNode = instantiate(this.prefab);
-      console.log('node',this.popupContentNode);
-      console.log('node',this.maskNode)
-    //   this.popupContentNode.addComponent(BlockInputEvents);
       this.popupContentNode.setParent(this.root);
       this.show();
   }
@@ -45,17 +42,25 @@ export class Popup  {
      this.openAnimation(this.popupContentNode);
   }
 
+  closePopup() {
+    this.closeAnimation(this.popupContentNode)
+    .then(()=>{
+        PopupPool.inst.popupNodePool.put(this.root);
+    })
+  }
+
   initCloseEvent() {
       this.maskNode.on(Node.EventType.TOUCH_END,()=>{
-        this.closeAnimation(this.popupContentNode)
-        .then(()=>{
-            PopupPool.inst.popupNodePool.put(this.root);
-        })
+        this.closePopup();
       });
 
       this.popupContentNode.on(Node.EventType.TOUCH_END,()=>{
         console.log(1111)
       });
+
+      UINode.inst.gameNode.on(GlobalEvents.popup_close,()=>{
+        this.closePopup();
+      })
   }
 
   createMask() {
@@ -80,7 +85,7 @@ export class Popup  {
   closeAnimation(node:Node) {
       return new Promise((res)=>{
           tween( node ).sequence(
-              tween( node ).to( 0.2 , { scale : new Vec3( 0.1 , 0.1 ) } ) , 
+              tween( node ).to( 0.1 , { scale : new Vec3( 0.1 , 0.1 ) } ) , 
           )
           .call(()=>{
               res(null)

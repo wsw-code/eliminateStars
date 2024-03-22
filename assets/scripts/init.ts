@@ -14,6 +14,7 @@ import { PrefabRes } from './Prefabs';
 import { PanelEntry } from './Panel';
 import { Evaluate } from './Evaluate';
 
+
 @ccclass('init')
 export class Init extends Component {
 
@@ -44,14 +45,10 @@ export class Init extends Component {
                 type:Prefab
             }),
         ]).then(()=>{
-            MapData.inst.createMap();
-            MapData.inst.executeFall();
+            MapData.inst.initGameMap();
             TouchCrtl.inst.initTouch();
             SettingBtn.inst.init()
             PanelEntry.inst.init();
-
-            console.log(AudioRes.inst.audioMap);
-            console.log(UIData.inst.spriteMap);
             Evaluate.inst.show(1)
         })
 
@@ -63,7 +60,6 @@ export class Init extends Component {
     
 
     }
-
 
 
     loadAudio() {

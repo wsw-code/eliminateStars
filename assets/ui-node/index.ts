@@ -41,6 +41,9 @@ export class UINode extends Singleton {
     /**当前score */
     public currentScore:Node = null;
 
+    /**重新开始按钮 */
+    public newBtn:Node = null;
+
 
     get eliminationContainer() {
         return this._eliminationContainer

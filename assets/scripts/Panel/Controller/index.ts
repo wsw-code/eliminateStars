@@ -16,6 +16,8 @@ export class Controller extends Component {
     /**间隔 */
     interval:number = 0.04;
 
+    currentTimes:number = 0;
+
     get times() {
         return Math.ceil(this.duration/this.interval)
     }
@@ -30,18 +32,18 @@ export class Controller extends Component {
         this.targetNumber = targetNumber;
         this.unschedule(this.scheduleCallback);
         this.addNumber = Math.ceil((this.targetNumber-currentNumber)/this.times);
-        console.log(this.addNumber)
-        this.schedule(this.scheduleCallback,this.interval)
+        this.currentTimes = 0;
+        this.schedule(this.scheduleCallback,this.interval,this.times)
     }
 
 
-    scheduleCallback(dt:number) {
+    scheduleCallback() {
         const number = Number(View.inst.score_node.getComponent(Label).string);
         let showNumber = number+this.addNumber;
-        if(showNumber>=this.targetNumber) {
+        this.currentTimes++;
+        if(this.currentTimes >= this.times) {
             showNumber = this.targetNumber
         }
-       
         View.inst.score_node.getComponent(Label).string = String(showNumber);
     }
 

@@ -1,4 +1,4 @@
-import { AudioClip, SpriteFrame,Node, Sprite, UITransform, tween, Vec3, UIOpacity } from "cc";
+import { AudioClip, SpriteFrame,Node, Sprite, UITransform, tween, Vec3, UIOpacity, Tween } from "cc";
 import Singleton from "../../base/singleton";
 import { UINode } from "../../ui-node";
 import { AudioRes } from "../AudioRes";
@@ -76,23 +76,24 @@ export class Evaluate extends Singleton {
     const sprite = node.addComponent(Sprite);
     sprite.spriteFrame = spriteFrame;
     node.setParent(UINode.inst.gameNode);
-    node.addComponent(UIOpacity)
+    node.addComponent(UIOpacity);
     this.evaluateNodeMap.set(spriteFrame,node);
     this.evaluateNodeAnim(node);
   }
 
   evaluateNodeAnim(node:Node) {
+    Tween.stopAllByTarget( node ) ;
     node.active = true;
-    node.scale = new Vec3(0.1,0.1,node.position.z)
-    node.getComponent(UIOpacity).opacity = 1;
+    node.scale = new Vec3(0.1,0.1,1)
+    node.getComponent(UIOpacity).opacity = 255;
 
-    tween(node).to(0.1,{
+    tween(node).to(0.2,{
       scale:new Vec3(1,1,1),
     })
-    .delay(0.1)
+    .delay(0.3)
     .call(()=>{
       tween(node.getComponent(UIOpacity))
-      .to(0.1,{
+      .to(0.2,{
         opacity:0
       })
       .call(()=>{

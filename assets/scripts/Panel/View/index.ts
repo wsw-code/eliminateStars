@@ -17,4 +17,7 @@ export class View extends Singleton {
 
     target_score:Node = find('Canvas/GameNode/Panel/Progess/ProgessScore/TargetScore');
 
+
+    target_tip:Node = find('Canvas/GameNode/Panel/Tip');
+
 }

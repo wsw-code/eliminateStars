@@ -47,6 +47,14 @@ export class Controller extends Component {
         View.inst.score_node.getComponent(Label).string = String(showNumber);
     }
 
+    
+    target_tip_change(num:number) {
+        const gap =  State.inst.target_score.data - num;
+        let text = gap>0?`通关还差${gap}分`:'恭喜通关';
+
+        View.inst.target_tip.getComponent(Label).string = text;
+    }
+
 
 
     target_score_change(val:number) {

@@ -30,7 +30,8 @@ export class PanelEntry extends Singleton {
 
         State.inst.score.registerEvents([
             this.controller.score_view_rolling.bind(this.controller),
-            this.controller.progess_bar_change.bind(this.controller)
+            this.controller.progess_bar_change.bind(this.controller),
+            this.controller.target_tip_change.bind(this.controller)
         ])
 
 

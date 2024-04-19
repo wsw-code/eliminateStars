@@ -3,6 +3,7 @@ import Singleton from "../../base/singleton";
 import {SpriteFrame,UITransform,resources} from 'cc'
 import { UINode } from "../../ui-node";
 import { AXLE_SIZE } from "../../state";
+import { Dir } from "../../enum";
 
 export class UIData extends Singleton {
 
@@ -30,7 +31,10 @@ export class UIData extends Singleton {
   public get fallStartY() {
     return this.worldHeight+this.CellWidth;
   }
-
+  
+  public get commonSprite() {
+    return this.spriteMap.get(Dir.common)
+  }
 
 
 

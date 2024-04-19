@@ -34,7 +34,8 @@ export enum CommonSprite {
   game_score1="game_score1",
   game_score2="game_score2",
   game_score3="game_score3",
-  game_score4="game_score4"
+  game_score4="game_score4",
+  pass="pass"
 }
 
 
@@ -62,7 +63,10 @@ export enum PrefabPath {
   /**遮罩 */
   Mask="Mask",
   /**分数 */
-  Score="Score"
+  Score="Score",
+
+  /**对话框 */
+  Dialog="Dialog"
 }
 
 

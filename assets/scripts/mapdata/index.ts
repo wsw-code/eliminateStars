@@ -34,7 +34,7 @@ export class MapData extends Singleton {
 
 
   getCell(x:number,y:number) {
-    if(x>=AXLE_SIZE || y>=AXLE_SIZE || x < 0 || y < 0) {
+    if(x >= AXLE_SIZE || y >= AXLE_SIZE || x < 0 || y < 0) {
       return null;
     }
     return MapData.inst.grid[y][x]

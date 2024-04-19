@@ -11,7 +11,6 @@ export class Stateton<T> {
     }
 
     set data(val) {
-        console.log('val',val);
         let oldVal = this._data;
         this._data = val;
         this.events.forEach((el)=>{

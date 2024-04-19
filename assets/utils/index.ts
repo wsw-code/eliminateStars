@@ -12,12 +12,7 @@ import { Score } from '../scripts/Score';
 import {State as PanelState} from '../scripts/Panel/State'
 import { Evaluate } from '../scripts/Evaluate';
 
-export class NodeCreateFactory extends Singleton {
 
-  static 
-
-
-}
 
 
 /**
@@ -51,9 +46,6 @@ export const positionToCoord = (touchX:number,touchY:number) => {
 
 
 
-export const eliminateControl = (x:number,y:number) => {
-
-}
 
 
 export const getAroundCell = (cell:Cell) => {
@@ -70,9 +62,10 @@ export const getAroundCell = (cell:Cell) => {
  * 找出对应消除物
  * @param x 
  * @param y 
+ * @param limitNumber 最大找多少个消除物 
  * @returns 
  */
-export const findEliminateTree = (x:number,y:number) => {
+export const findEliminateTree = (x:number,y:number,limitNumber:number=Infinity) => {
 
   const _cell = MapData.inst.getCell(x,y);
   if(!_cell?.elimination) {
@@ -101,15 +94,32 @@ export const findEliminateTree = (x:number,y:number) => {
       const element = round[index];
       treeSet.add(element);
       recursionList.push(element);
+      if(treeSet.size>=limitNumber) {
+        recursionList.length = 0;
+        break;
+      }
     }
     recursionList.shift();
   }
 
   return treeSet
+}
 
-  
 
+/**
+ * 获取能够消除的节点
+ */
+export const getAbleElimateTree = ()=> {
+  for (let i = 0; i < AXLE_SIZE; i++) {
+    for (let j = 0; j < AXLE_SIZE; j++) {
+      const ableTree = findEliminateTree(i,j,2)
+      if(ableTree && ableTree.size>=2) {
+        return ableTree
+      }
+    }
+  }
 
+  return null
 }
 
 
@@ -143,7 +153,7 @@ export const eliminateExe = (cellSet: Set<Cell> | null)=> {
 
               },_delay)
           })
-          PanelState.inst.score.data+=targetNumber*cellSet.size;
+          PanelState.inst.score.data += targetNumber*cellSet.size;
           Evaluate.inst.show(cellSet.size);
       } else {
         rej('没找到对应节点')
@@ -230,7 +240,7 @@ export const getCellPos = (x,y)=> {
   return new Vec3(_pos.x,_pos.y);
 }
 
-/**实现合并效果 */
+/**合并位置调整 */
 export const merge = () => {
   /**获取底层 */
   const bottomCell = MapData.inst.grid[0];
@@ -304,3 +314,15 @@ export const getNumberFromString = (a: string) => {
   let num = Number(a.replace(/[^0-9]/gi, ''))
   return num ? num : 0
 }
+
+
+
+
+/**下一个关卡 */
+export const nextLevel = () => {
+  PanelState.inst.level++;
+  MapData.inst.initGameMap();
+}
+
+
+

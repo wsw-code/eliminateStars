@@ -6,6 +6,7 @@ import { State } from "./State";
 
 
 
+/**顶部面板 */
 export class PanelEntry extends Singleton {
 
     static get inst() {
@@ -31,7 +32,8 @@ export class PanelEntry extends Singleton {
         State.inst.score.registerEvents([
             this.controller.score_view_rolling.bind(this.controller),
             this.controller.progess_bar_change.bind(this.controller),
-            this.controller.target_tip_change.bind(this.controller)
+            this.controller.target_tip_change.bind(this.controller),
+            this.controller.pass.bind(this.controller)
         ])
 
 
@@ -41,6 +43,7 @@ export class PanelEntry extends Singleton {
     target_score_bind() {
         State.inst.target_score.registerEvents([
             this.controller.target_score_change.bind(this.controller),
+            this.controller.progess_bar_change.bind(this.controller),
         ]) 
         State.inst.target_score.data = State.inst.target_score.data
 

@@ -45,6 +45,10 @@ export class UINode extends Singleton {
     public newBtn:Node = null;
 
 
+    /**Pass通过节点 */
+    public passNode:Node = null;
+
+
     get eliminationContainer() {
         return this._eliminationContainer
     }

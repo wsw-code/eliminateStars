@@ -41,7 +41,6 @@ export class Evaluate extends Singleton {
 
     const _spriteMap = UIData.inst.spriteMap.get(Dir.common);
     console.log(UIData.inst.spriteMap)
-    console.log('_spriteMap',_spriteMap)
     this.evaluateMap.set([10,Infinity],{
       audioPath:AudioPath.combo_3,
       sprite:_spriteMap.get(CommonSprite.game_score4)
@@ -111,7 +110,7 @@ export class Evaluate extends Singleton {
    
 
     for (const [[min,max],{audioPath,sprite}] of this.evaluateMap) {
-      console.log('audioPath',audioPath)
+     
       if(num>=min && num <= max) {
         AudioRes.inst.play(audioPath);
         this.showEvaluateSprite(sprite)

@@ -14,12 +14,15 @@ export class PopupControl extends Singleton {
     popupMap:Map<Prefab,Popup> = new Map();
 
     show(prefab:Prefab) {
-        const popupInst = this.popupMap.get(prefab);
+        console.log('prefab == ',prefab)
+        let popupInst = this.popupMap.get(prefab);
         if(popupInst) {
             popupInst.show()
         } else {
-            const popupInst = new Popup(prefab);
+            popupInst = new Popup(prefab);
             this.popupMap.set(prefab,popupInst);
         }
+
+        return popupInst
     }
 }

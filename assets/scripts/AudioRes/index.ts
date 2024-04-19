@@ -1,6 +1,6 @@
-import { AudioClip, AudioSource,Node, NodePool } from "cc"
+import { AudioClip, AudioSource,Node } from "cc"
 import Singleton from "../../base/singleton"
-import { UINode } from "../../ui-node"
+
 import { State } from "../State"
 import { AudioPath } from "../../enum"
 
@@ -39,7 +39,6 @@ export class AudioRes extends Singleton {
             this.audioMap.set(el.name,el)
         })
 
-        console.log(this.audioMap)
     }
 
     /**播放按键声音 */

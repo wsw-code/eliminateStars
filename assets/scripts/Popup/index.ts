@@ -18,12 +18,13 @@ export class Popup  {
   constructor(public prefab:Prefab) {
       this.createPopup();
       this.initCloseEvent();
+
+
   }
 
 
   createPopup() {
-      this.root = new Node();
-    
+      this.root = new Node("Popup");
       this.maskNode = this.createMask();
       this.maskNode.setParent(this.root);
       this.popupContentNode = instantiate(this.prefab);
@@ -33,19 +34,25 @@ export class Popup  {
 
   show() {
 
-      const _rootNode = PopupPool.inst.popupNodePool.get(this.root)
-     if(_rootNode) {
-      _rootNode.setParent(UINode.inst.gameNode);
-     } else {
-      this.root.setParent(UINode.inst.gameNode);
-     }
+    //   const _rootNode = PopupPool.inst.popupNodePool.get(this.root)
+    //   console.log('_rootNode',_rootNode)
+    //  if(_rootNode) {
+    //   _rootNode.setParent(UINode.inst.gameNode);
+    //  } else {
+    //   this.root.setParent(UINode.inst.gameNode);
+    //  }
+
+    this.root.setParent(UINode.inst.gameNode);
+
+     this.root.active = true
+
      this.openAnimation(this.popupContentNode);
   }
 
   closePopup() {
     this.closeAnimation(this.popupContentNode)
     .then(()=>{
-        PopupPool.inst.popupNodePool.put(this.root);
+        this.root.active = false
     })
   }
 

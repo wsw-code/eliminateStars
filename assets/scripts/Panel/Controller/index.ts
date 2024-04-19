@@ -1,7 +1,10 @@
-import { Component, Label, Sprite, tween } from "cc"
+import { Component, Label, Sprite, tween,Node, Vec3, UITransform } from "cc"
 import Singleton from "../../../base/singleton"
 import { View } from "../View"
 import { State } from "../State";
+import { UIData } from "../../uidata";
+import { CommonSprite, Dir } from "../../../enum";
+import { UINode } from "../../../ui-node";
 
 export class Controller extends Component {
 
@@ -62,13 +65,61 @@ export class Controller extends Component {
     }
 
 
-
-    progess_bar_change(val:number) {
+    /**分数进度条变更 */
+    progess_bar_change() {
         const sprite = View.inst.progess_bar.getComponent(Sprite);
-
-        const fillRange = val/State.inst.target_score.data
-
+        const fillRange = State.inst.score.data/State.inst.target_score.data
         tween( sprite ).to( 0.5 , { fillRange : Number(fillRange.toFixed(2)) }  ).start() ; 
+
+    }
+
+
+    /**通关逻辑 */
+    pass(num:number) {
+        if(num>=State.inst.target_score.data) {
+            this.pass_icon_show()
+        }
+    }
+
+    /**重置通关标识状态 */
+    initPassNodeStatus() {
+        if(UINode.inst.passNode) {
+            UINode.inst.passNode.active = false;
+            UINode.inst.passNode.setPosition(0,0)
+        }    
+    }
+
+
+    /**通关标识弹出 */
+    pass_icon_show(reset:boolean=false) {
+
+        if(!UINode.inst.passNode) {
+            const common = UIData.inst.commonSprite;
+            const node = new Node();
+            const sprite = node.addComponent(Sprite);
+            sprite.spriteFrame = common.get(CommonSprite.pass);
+            node.setParent(UINode.inst.gameNode);
+            UINode.inst.passNode = node;
+            this.initPassNodeStatus();
+        }
+        if(reset) {
+            this.initPassNodeStatus();
+        }
+
+        UINode.inst.passNode.scale = new Vec3(0.1,0.1,UINode.inst.passNode.position.z)
+        let worldPos = UINode.inst.currentScore.getComponent(UITransform).convertToWorldSpaceAR(Vec3.ZERO);
+        let position = UINode.inst.gameNode.getComponent(UITransform).convertToNodeSpaceAR(worldPos);
+        const {x,y,z} = position;
+        tween(UINode.inst.passNode)
+        .to(0.1,{
+            scale:new Vec3(1,1,UINode.inst.passNode.position.z)
+        })
+        .delay(0.1)
+        .to(0.1,{
+            position:new Vec3(x,y-50,z),
+            scale:new Vec3(0.5,0.5,UINode.inst.passNode.position.z)
+        })
+        .start();
 
     }
 

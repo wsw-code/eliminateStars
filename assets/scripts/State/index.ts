@@ -1,4 +1,4 @@
-import { NodePool } from "cc";
+
 import Singleton from "../../base/singleton";
 import { AudioPath } from "../../enum";
 import { UINode } from "../../ui-node";

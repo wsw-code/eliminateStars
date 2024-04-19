@@ -6,21 +6,21 @@ import { UIData } from './uidata';
 import {MapData} from './mapdata';
 import { TouchCrtl } from './control/touch/Touch';
 import {lightAnimationClip} from './animationClip/light'
-import { Dir } from '../enum';
-import { resLoad, spriteFrameLoad } from '../utils';
+import { Dir, PrefabPath } from '../enum';
+import { resLoad } from '../utils';
 import { AudioRes } from './AudioRes';
 import { SettingBtn } from './control/SettingBtn';
 import { PrefabRes } from './Prefabs';
 import { PanelEntry } from './Panel';
 import { Evaluate } from './Evaluate';
+import { PopupControl } from './PopupControl';
+import { Dialog } from './Dialog';
 
 
 @ccclass('init')
 export class Init extends Component {
 
     async start() {
-
-
         UINode.inst.initNode();
         this.loadAudio();
         Promise.all([
@@ -49,16 +49,53 @@ export class Init extends Component {
             TouchCrtl.inst.initTouch();
             SettingBtn.inst.init()
             PanelEntry.inst.init();
-            Evaluate.inst.show(1)
+            Evaluate.inst.show(1);
+
+
+
+            const inst =PopupControl.inst.show(PrefabRes.inst.prefabMap.get(PrefabPath.Dialog));
+            inst.popupContentNode.getComponent(Dialog).config({
+                contextStr:'通关成功'
+            })
         })
 
+    }
 
 
-        
-      
-        
+    showSuccess() {
+
+    }
+
     
 
+
+
+    testFn()  {
+        let num = 0;
+        testloop:{
+            for (let i = 0; i < 10; i++) {
+                for (let j = 0; j < 10; j++) {
+                    if(i === 5 && j === 5) {
+                        break 
+                    }
+                    
+                    num++;
+                    
+                }
+
+                
+            }
+        }
+
+
+        // for (let index = 0; index < 10; index++) {
+        //    if(index === 5) {
+        //     break
+        //    }
+        //    console.log(index)
+        // }
+
+        console.log('num ==== ',num)
     }
 
 
@@ -83,7 +120,6 @@ export class Init extends Component {
 
 
     createLightNode() {
-
         const node = new Node('light')
         const transform = node.addComponent(UITransform);
         const sprite = node.addComponent(Sprite);
@@ -91,7 +127,6 @@ export class Init extends Component {
         transform.width = 100;
         transform.height = 100;
         node.active = false
-
         node.layer = 1 << Layers.nameToLayer('UI_2D');
         return node;
     }
@@ -103,29 +138,18 @@ export class Init extends Component {
         const lightNode = this.createLightNode();
         const transform = node.addComponent(UITransform);
         const sprite = node.addComponent(Sprite);
-      
-    
         node.setPosition(0,0)
         sprite.spriteFrame = UIData.inst.spriteMap.get(Dir.elimination).get('red')
-        // transform.setAnchorPoint(0, 1)
         node.layer = 1 << Layers.nameToLayer('UI_2D');
-        
         transform.width = 100;
         transform.height = 100;
-
         node.setParent(wrapperNode);
         wrapperNode.setParent(UINode.inst.gameNode);
         lightNode.setParent(wrapperNode);
         const animationComponent = wrapperNode.addComponent(Animation);
-        // animationComponent.addClip(lightAnimationClip);
         animationComponent.defaultClip = lightAnimationClip.inst.animationClip;
-        
-        
         animationComponent.play()
-    
-        
         return node
-
     }
 
 

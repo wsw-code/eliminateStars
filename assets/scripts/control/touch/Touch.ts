@@ -1,8 +1,9 @@
 import { _decorator,NodeEventType,Vec2 } from 'cc';
 import { UINode } from '../../../ui-node';
 import Singleton from '../../../base/singleton';
-import { eliminateExe, eliminateFall, eliminateUpdatePos, findEliminateTree, positionToCoord,merge } from '../../../utils';
+import { eliminateExe, eliminateFall, eliminateUpdatePos, findEliminateTree, positionToCoord,merge, getAbleElimateTree, nextLevel } from '../../../utils';
 import { State } from '../../State';
+import {State as PanelState} from '../../Panel/State'
 const { ccclass, property } = _decorator;
 
 /**
@@ -30,10 +31,29 @@ export class TouchCrtl extends Singleton  {
                 await Promise.all(cellList.map(el=>el.playFall()))
                 merge();  
                 await eliminateUpdatePos(3000);
+                const ableElimateTree = getAbleElimateTree();
+                if(!ableElimateTree ) {
+                    console.log('不能再消除了')
+                    if(PanelState.inst.isPass) {
+                        console.log('通关')
+
+                        setTimeout(()=>{
+                            nextLevel()
+                        },1000)
+                        
+
+                    } else {
+                        console.log('失败')
+                    }
+                     
+                }
             }
             State.inst.ableClick = true;
         })
     }
+
+
+    
 
 
 }

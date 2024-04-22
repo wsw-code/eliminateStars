@@ -72,5 +72,14 @@ export enum PrefabPath {
 
 
 export enum GlobalEvents {
-  popup_close=`popup_close`
+
+}
+
+
+
+export enum CommonNodeName {
+  /**弹窗遮罩节点名称 */
+  NAME_MASK = "NAME_MASK",
+  /**弹窗最顶部节点 */
+  NAME_POPUP = "NAME_POPUP"
 }

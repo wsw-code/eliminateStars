@@ -2,15 +2,16 @@ import { _decorator, Component, find, Node } from 'cc';
 import { UINode } from '../../../ui-node';
 import { AudioRes } from '../../AudioRes';
 import { State } from '../../State';
-import { GlobalEvents } from '../../../enum';
 import { MapData } from '../../mapdata';
 import { State as PanelState } from '../../Panel/State';
+import { closePupop } from '../../Popup';
 const { ccclass, property } = _decorator;
 
 @ccclass('SettingPopup')
 export class SettingPopup extends Component {
 
 
+    continueBtn:Node = null
 
     protected onLoad(): void {
 
@@ -26,6 +27,7 @@ export class SettingPopup extends Component {
         UINode.inst.musicBtnOff = find('container/Audio/Music/Off',this.node);
         UINode.inst.soundBtnOff = find('container/Audio/Sound/Off',this.node);
         UINode.inst.newBtn = find('container/newGame',this.node);
+        this.continueBtn = find('container/Continue',this.node);
     }
 
     /**
@@ -46,11 +48,14 @@ export class SettingPopup extends Component {
         });
 
         UINode.inst.newBtn.on(Node.EventType.TOUCH_START,()=>{
-            console.log('重新开始');
-            UINode.inst.gameNode.emit(GlobalEvents.popup_close);
+            closePupop(this.node)
             MapData.inst.initGameMap();
             PanelState.inst.score.data = 0;
 
+        })
+
+        this.continueBtn.on(Node.EventType.TOUCH_START,()=>{
+            closePupop(this.node)
         })
 
         

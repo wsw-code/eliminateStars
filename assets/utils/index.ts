@@ -6,7 +6,7 @@ import { Cell } from '../scripts/Cell';
 import { AXLE_SIZE } from '../state';
 import { Bomb } from '../scripts/Bomb';
 import { UINode } from '../ui-node';
-import { Asset, AudioClip, AudioSource, SpriteFrame, UITransform, Vec3, resources, tween } from 'cc';
+import { Asset, AudioClip, Node, SpriteFrame, UITransform, Vec3, find, resources, tween } from 'cc';
 import { Score } from '../scripts/Score';
 
 import {State as PanelState} from '../scripts/Panel/State'
@@ -323,6 +323,7 @@ export const nextLevel = () => {
   PanelState.inst.level++;
   MapData.inst.initGameMap();
 }
+
 
 
 

@@ -1,9 +1,16 @@
-import { Prefab, instantiate,Node, Vec3, tween, BlockInputEvents } from "cc";
-import { PopupPool } from "../PopupPool";
+import { Prefab, instantiate,Node, Vec3, tween, BlockInputEvents, find, NodeEventType } from "cc";
 import { PrefabRes } from "../Prefabs";
 import { UINode } from "../../ui-node";
-import { GlobalEvents, PrefabPath } from "../../enum";
+import { CommonNodeName, PrefabPath } from "../../enum";
 
+
+
+export enum PopupEventType  {
+    /**弹窗确认 */
+    POPUP_CONFIRM="POPUP_CONFIRM",
+    /**弹窗关闭 */
+    POPUP_CLOSE="POPUP_CLOSE"
+}
 
 
 export class Popup  {
@@ -24,7 +31,7 @@ export class Popup  {
 
 
   createPopup() {
-      this.root = new Node("Popup");
+      this.root = new Node(CommonNodeName.NAME_POPUP);
       this.maskNode = this.createMask();
       this.maskNode.setParent(this.root);
       this.popupContentNode = instantiate(this.prefab);
@@ -34,13 +41,7 @@ export class Popup  {
 
   show() {
 
-    //   const _rootNode = PopupPool.inst.popupNodePool.get(this.root)
-    //   console.log('_rootNode',_rootNode)
-    //  if(_rootNode) {
-    //   _rootNode.setParent(UINode.inst.gameNode);
-    //  } else {
-    //   this.root.setParent(UINode.inst.gameNode);
-    //  }
+
 
     this.root.setParent(UINode.inst.gameNode);
 
@@ -57,21 +58,23 @@ export class Popup  {
   }
 
   initCloseEvent() {
+
+      this.root.on(PopupEventType.POPUP_CLOSE,()=>{
+        this.closePopup();
+      });
+
       this.maskNode.on(Node.EventType.TOUCH_END,()=>{
         this.closePopup();
       });
 
-      this.popupContentNode.on(Node.EventType.TOUCH_END,()=>{
-        console.log(1111)
-      });
-
-      UINode.inst.gameNode.on(GlobalEvents.popup_close,()=>{
+      this.root.on(PopupEventType.POPUP_CONFIRM,()=>{
         this.closePopup();
-      })
+      });
   }
 
   createMask() {
       const maskNode = instantiate(PrefabRes.inst.prefabMap.get(PrefabPath.Mask));
+      maskNode.name = CommonNodeName.NAME_MASK
       return maskNode
   }
 
@@ -101,4 +104,34 @@ export class Popup  {
       })
   }
 
+}
+
+
+
+/**
+ * 关闭上层弹窗节点
+ * @param node 弹窗节点下的任意节点
+ * @param maxNum 遍历次数
+ */
+export const closePupop = (node:Node,maxNum:number=10) => {
+
+    if(maxNum>100) {
+        console.warn(`不超过100循环次数`);
+        return 
+    }
+
+    let currentNode:Node = node;
+  
+    for (let index = 0; index < 10; index++) {
+      
+      currentNode = currentNode.parent;
+      if(currentNode.name === CommonNodeName.NAME_POPUP) {
+        break;
+      }
+      if(index == maxNum-1) {
+        console.warn(`子节点和弹窗父节点之间嵌套超过${maxNum}层,请调整参数`);
+        return 
+      }
+    }
+    currentNode?.emit(PopupEventType.POPUP_CLOSE);
 }

@@ -44,6 +44,7 @@ export class PanelEntry extends Singleton {
         State.inst.target_score.registerEvents([
             this.controller.target_score_change.bind(this.controller),
             this.controller.progess_bar_change.bind(this.controller),
+            this.controller.target_tip_change.bind(this.controller)
         ]) 
         State.inst.target_score.data = State.inst.target_score.data
 

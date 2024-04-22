@@ -1,6 +1,9 @@
 import Singleton from "../../base/singleton";
 import { Prefab} from 'cc';
 import { Popup } from "../Popup";
+import { PrefabRes } from "../Prefabs";
+import { PrefabPath } from "../../enum";
+import { Dialog } from "../Dialog";
 
 
 
@@ -14,7 +17,6 @@ export class PopupControl extends Singleton {
     popupMap:Map<Prefab,Popup> = new Map();
 
     show(prefab:Prefab) {
-        console.log('prefab == ',prefab)
         let popupInst = this.popupMap.get(prefab);
         if(popupInst) {
             popupInst.show()
@@ -24,5 +26,10 @@ export class PopupControl extends Singleton {
         }
 
         return popupInst
+    }
+
+
+    showSuccess() {
+       PopupControl.inst.show(PrefabRes.inst.prefabMap.get(PrefabPath.Dialog));
     }
 }

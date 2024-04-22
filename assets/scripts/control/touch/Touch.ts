@@ -4,6 +4,7 @@ import Singleton from '../../../base/singleton';
 import { eliminateExe, eliminateFall, eliminateUpdatePos, findEliminateTree, positionToCoord,merge, getAbleElimateTree, nextLevel } from '../../../utils';
 import { State } from '../../State';
 import {State as PanelState} from '../../Panel/State'
+import { PopupControl } from '../../PopupControl';
 const { ccclass, property } = _decorator;
 
 /**
@@ -37,9 +38,11 @@ export class TouchCrtl extends Singleton  {
                     if(PanelState.inst.isPass) {
                         console.log('通关')
 
-                        setTimeout(()=>{
-                            nextLevel()
-                        },1000)
+                        // setTimeout(()=>{
+                        //     nextLevel()
+                        // },1000)
+
+                        PopupControl.inst.showSuccess()
                         
 
                     } else {

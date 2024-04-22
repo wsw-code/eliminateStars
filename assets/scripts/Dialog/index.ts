@@ -1,11 +1,10 @@
 import { Component, find,Node,_decorator, Label, NodeEventType } from "cc";
+import { closePupop } from "../Popup";
+import { nextLevel } from "../../utils";
 
-const { ccclass, property } = _decorator;
+const { ccclass } = _decorator;
 
 
-type ConfigProps = {
-  contextStr:string;
-}
 
 @ccclass('Dialog')
 export class Dialog extends Component {
@@ -16,25 +15,27 @@ export class Dialog extends Component {
 
   confirmBtn:Node = null;
 
+
+  callBackFn:()=>void;
+
   protected onLoad(): void {
     this.contentNode = find('container/Content',this.node);
     this.confirmBtn = find('container/Confirm',this.node);
-
+    this.contentNode.getComponent(Label).string = '通关成功';
     this.initEvents();
   }
 
   initEvents() {
     this.confirmBtn.on(Node.EventType.TOUCH_END,()=>{
-      const mask = find("Mask",this.node.parent);
-
-      mask.emit(NodeEventType.TOUCH_END)
+        closePupop(this.node);
+        nextLevel();
     })
   }
 
+  
 
-  config({contextStr}:ConfigProps) {
-    this.contentNode.getComponent(Label).string = contextStr
-  }
+
+
 
 
 

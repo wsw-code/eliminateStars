@@ -50,21 +50,12 @@ export class Init extends Component {
             SettingBtn.inst.init()
             PanelEntry.inst.init();
             Evaluate.inst.show(1);
-
-
-
-            const inst =PopupControl.inst.show(PrefabRes.inst.prefabMap.get(PrefabPath.Dialog));
-            inst.popupContentNode.getComponent(Dialog).config({
-                contextStr:'通关成功'
-            })
         })
 
     }
 
 
-    showSuccess() {
 
-    }
 
     
 

@@ -47,6 +47,6 @@ export class State extends Singleton {
 
     /**判断是否通关 */
     get isPass() {
-        return this.score >= this.target_score
+        return this.score.data >= this.target_score.data
     }
 }

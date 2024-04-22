@@ -67,7 +67,7 @@ export class Controller extends Component {
     /**分数进度条变更 */
     progess_bar_change() {
         const sprite = View.inst.progess_bar.getComponent(Sprite);
-        const fillRange = State.inst.score.data/State.inst.target_score.data
+        const fillRange = (State.inst.score.data-State.inst.crrentScore)/(State.inst.target_score.data-State.inst.crrentScore)
         tween( sprite ).to( 0.5 , { fillRange : Number(fillRange.toFixed(2)) }  ).start() ; 
 
     }

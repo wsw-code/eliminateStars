@@ -22,22 +22,25 @@ export const LEVEL  = [
     score:10000
   },
   {
-    score:11500
+    score:12000
   },
   {
-    score:13000
-  },
-  {
-    score:14500
+    score:14000
   },
   {
     score:16000
   },
   {
-    score:17500
+    score:18000
   },
   {
-    score:19000
+    score:20000
+  },
+  {
+    score:22000
+  },
+  {
+    score:24000
   },
 ]
 

@@ -298,7 +298,7 @@ export const spriteFrameLoad = async (path:string,cb:(data:SpriteFrame[],name:st
 
 export const audioLoad = async (path:string,cb:(data:AudioClip[],name:string)=>void) => {
 
-  return new Promise((res,rej)=>{
+  return new Promise((res)=>{
       resources.loadDir(path,AudioClip,(err,data)=>{
           if(!err) {
               res(data)
@@ -320,7 +320,7 @@ export const getNumberFromString = (a: string) => {
 
 /**下一个关卡 */
 export const nextLevel = () => {
-  PanelState.inst.level++;
+  PanelState.inst.level+=1;
   MapData.inst.initGameMap();
 }
 

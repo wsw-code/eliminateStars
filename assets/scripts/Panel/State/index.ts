@@ -15,6 +15,8 @@ export class State extends Singleton {
         return super.getInstance<State>()
     }
 
+    crrentScore:number = 0;
+
     /**当前关卡 */
     get level() {
         return this._level;
@@ -23,7 +25,8 @@ export class State extends Singleton {
 
     set level(val:number) {
         this._level = val;
-        this.target_score.data = LEVEL[this.level].score
+        this.crrentScore = this.score.data
+        this.target_score.data = LEVEL[this.level].score;
     }
 
     _level:number = 0;

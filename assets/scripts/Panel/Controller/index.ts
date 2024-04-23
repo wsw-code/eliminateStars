@@ -21,6 +21,8 @@ export class Controller extends Component {
 
     currentTimes:number = 0;
 
+
+
     get times() {
         return Math.ceil(this.duration/this.interval)
     }
@@ -82,16 +84,19 @@ export class Controller extends Component {
 
     /**重置通关标识状态 */
     initPassNodeStatus() {
+       
         if(UINode.inst.passNode) {
             UINode.inst.passNode.active = false;
-            UINode.inst.passNode.setPosition(0,0)
+            UINode.inst.passNode.setPosition(0,0);
         }    
     }
 
 
     /**通关标识弹出 */
     pass_icon_show(reset:boolean=false) {
-
+        if(UINode.inst.passNode?.active) {
+            return 
+        }
         if(!UINode.inst.passNode) {
             const common = UIData.inst.commonSprite;
             const node = new Node();
@@ -105,7 +110,8 @@ export class Controller extends Component {
             this.initPassNodeStatus();
         }
 
-        UINode.inst.passNode.scale = new Vec3(0.1,0.1,UINode.inst.passNode.position.z)
+        UINode.inst.passNode.active = true;
+        UINode.inst.passNode.scale = new Vec3(0.1,0.1,UINode.inst.passNode.position.z);
         let worldPos = UINode.inst.currentScore.getComponent(UITransform).convertToWorldSpaceAR(Vec3.ZERO);
         let position = UINode.inst.gameNode.getComponent(UITransform).convertToNodeSpaceAR(worldPos);
         const {x,y,z} = position;

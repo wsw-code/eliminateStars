@@ -1,5 +1,5 @@
 
-import Singleton from '../base/singleton';
+
 import { UIData } from '../scripts/uidata';
 import {  MapData } from '../scripts/mapdata';
 import { Cell } from '../scripts/Cell';
@@ -10,6 +10,7 @@ import { Asset, AudioClip, Node, SpriteFrame, UITransform, Vec3, find, resources
 import { Score } from '../scripts/Score';
 
 import {State as PanelState} from '../scripts/Panel/State'
+import {PanelEntry} from '../scripts/Panel'
 import { Evaluate } from '../scripts/Evaluate';
 
 
@@ -321,6 +322,7 @@ export const getNumberFromString = (a: string) => {
 /**下一个关卡 */
 export const nextLevel = () => {
   PanelState.inst.level+=1;
+  PanelEntry.inst.controller.initPassNodeStatus()
   MapData.inst.initGameMap();
 }
 

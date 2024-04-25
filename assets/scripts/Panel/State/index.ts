@@ -1,4 +1,5 @@
 
+import { createStore } from "../../../base/redux";
 import Singleton from "../../../base/singleton"; 
 import { Stateton } from "../../../base/stateton";
 
@@ -7,49 +8,38 @@ import {LEVEL} from '../../Level'
 
 
 
-
 export class State extends Singleton {
-
-
     static get inst() {
         return super.getInstance<State>()
     }
 
     crrentScore:number = 0;
 
-    /**当前关卡 */
-    get level() {
-        return this._level;
-    }
 
 
-    set level(val:number) {
-        this._level = val;
-        this.crrentScore = this.score.data
-        this.target_score.data = LEVEL[this.level].score;
-    }
+    level:number = 0;
 
-    _level:number = 0;
+    /** 目标分数 */
+    target_score: number = this.currentLevel.score
 
-     
+    /**面板分数 */
+    score: number = 0;
 
     /**获取当前关卡数据 */
     get currentLevel() {
         return LEVEL[this.level]
     }
 
-    /** 目标分数 */
-    target_score: Stateton<number> = new Stateton(this.currentLevel.score);
 
-    /**面板分数 */
-    score: Stateton<number> = new Stateton(0);
-
-    get gap() {
-        return this.target_score
-    }
 
     /**判断是否通关 */
     get isPass() {
-        return this.score.data >= this.target_score.data
+        return this.score >= this.target_score
     }
+
 }
+
+
+
+export const panel_data = createStore(State.inst);
+

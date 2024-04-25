@@ -8,8 +8,7 @@ import { Bomb } from '../scripts/Bomb';
 import { UINode } from '../ui-node';
 import { Asset, AudioClip, Node, SpriteFrame, UITransform, Vec3, find, resources, tween } from 'cc';
 import { Score } from '../scripts/Score';
-
-import {State as PanelState} from '../scripts/Panel/State'
+import {panel_data} from '../scripts/Panel/State'
 import {PanelEntry} from '../scripts/Panel'
 import { Evaluate } from '../scripts/Evaluate';
 
@@ -154,7 +153,9 @@ export const eliminateExe = (cellSet: Set<Cell> | null)=> {
 
               },_delay)
           })
-          PanelState.inst.score.data += targetNumber*cellSet.size;
+          const {score} = panel_data.getState();
+          panel_data.dispatch({score:score+targetNumber*cellSet.size})
+         
           Evaluate.inst.show(cellSet.size);
       } else {
         rej('没找到对应节点')
@@ -321,7 +322,9 @@ export const getNumberFromString = (a: string) => {
 
 /**下一个关卡 */
 export const nextLevel = () => {
-  PanelState.inst.level+=1;
+
+
+  panel_data.dispatch({level:panel_data.getState().level+1})
   PanelEntry.inst.controller.initPassNodeStatus()
   MapData.inst.initGameMap();
 }

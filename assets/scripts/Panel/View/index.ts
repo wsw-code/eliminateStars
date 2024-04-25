@@ -20,4 +20,6 @@ export class View extends Singleton {
 
     target_tip:Node = find('Canvas/GameNode/Panel/Tip');
 
+    current_level:Node = find('Canvas/GameNode/Panel/LevelInfo/Level')
+
 }

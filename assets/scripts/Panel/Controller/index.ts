@@ -1,10 +1,14 @@
 import { Component, Label, Sprite, tween,Node, Vec3, UITransform } from "cc"
-import Singleton from "../../../base/singleton"
+
 import { View } from "../View"
-import { State } from "../State";
+import { State, panel_data } from "../State";
 import { UIData } from "../../uidata";
 import { CommonSprite, Dir } from "../../../enum";
 import { UINode } from "../../../ui-node";
+
+
+        
+
 
 export class Controller extends Component {
 
@@ -34,6 +38,9 @@ export class Controller extends Component {
 
 
     score_view_rolling(targetNumber:number,currentNumber:number) {
+        if(Number.isNaN(currentNumber)) {
+            return 
+        }
         this.targetNumber = targetNumber;
         this.unschedule(this.scheduleCallback);
         this.addNumber = Math.ceil((this.targetNumber-currentNumber)/this.times);
@@ -54,30 +61,37 @@ export class Controller extends Component {
 
     
     target_tip_change() {
-        const gap =  State.inst.target_score.data - State.inst.score.data;
+        const {score,target_score} = panel_data.getState();
+        const gap =  target_score - score;
         let text = gap>0?`通关还差${gap}分`:'恭喜通关';
         View.inst.target_tip.getComponent(Label).string = text;
     }
 
 
 
-    target_score_change(val:number) {
-        View.inst.target_score.getComponent(Label).string = val+'';
+    target_score_change() {
+        
+        const {target_score} = panel_data.getState();
+        View.inst.target_score.getComponent(Label).string = target_score+'';
     }
 
 
     /**分数进度条变更 */
     progess_bar_change() {
+        const {score,crrentScore,target_score} = panel_data.getState();
+        console.log(score,crrentScore)
         const sprite = View.inst.progess_bar.getComponent(Sprite);
-        const fillRange = (State.inst.score.data-State.inst.crrentScore)/(State.inst.target_score.data-State.inst.crrentScore)
+        const fillRange = (score-crrentScore)/(target_score-crrentScore)
+        console.log('fillRange',fillRange)
         tween( sprite ).to( 0.5 , { fillRange : Number(fillRange.toFixed(2)) }  ).start() ; 
 
     }
 
 
     /**通关逻辑 */
-    pass(num:number) {
-        if(num>=State.inst.target_score.data) {
+    pass() {
+        const {score,target_score} = panel_data.getState();
+        if(score>=target_score) {
             this.pass_icon_show()
         }
     }
@@ -93,7 +107,7 @@ export class Controller extends Component {
 
 
     /**通关标识弹出 */
-    pass_icon_show(reset:boolean=false) {
+    pass_icon_show() {
         if(UINode.inst.passNode?.active) {
             return 
         }
@@ -106,9 +120,7 @@ export class Controller extends Component {
             UINode.inst.passNode = node;
             this.initPassNodeStatus();
         }
-        if(reset) {
-            this.initPassNodeStatus();
-        }
+
 
         UINode.inst.passNode.active = true;
         UINode.inst.passNode.scale = new Vec3(0.1,0.1,UINode.inst.passNode.position.z);
@@ -119,13 +131,17 @@ export class Controller extends Component {
         .to(0.1,{
             scale:new Vec3(1,1,UINode.inst.passNode.position.z)
         })
-        .delay(0.1)
+        .delay(0.3)
         .to(0.1,{
             position:new Vec3(x,y-50,z),
             scale:new Vec3(0.5,0.5,UINode.inst.passNode.position.z)
         })
         .start();
 
+    }
+
+    current_level_show() {
+        View.inst.current_level.getComponent(Label).string = State.inst.level+'';
     }
 
 

@@ -3,7 +3,7 @@ import { UINode } from '../../../ui-node';
 import { AudioRes } from '../../AudioRes';
 import { State } from '../../State';
 import { MapData } from '../../mapdata';
-import { State as PanelState } from '../../Panel/State';
+import { panel_data } from '../../Panel/State';
 import { closePupop } from '../../Popup';
 const { ccclass, property } = _decorator;
 
@@ -50,7 +50,7 @@ export class SettingPopup extends Component {
         UINode.inst.newBtn.on(Node.EventType.TOUCH_START,()=>{
             closePupop(this.node)
             MapData.inst.initGameMap();
-            PanelState.inst.score.data = 0;
+            panel_data.dispatch({score:0})
 
         })
 

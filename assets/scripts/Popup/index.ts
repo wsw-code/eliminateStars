@@ -12,6 +12,13 @@ export enum PopupEventType  {
     POPUP_CLOSE="POPUP_CLOSE"
 }
 
+/**弹窗配置 */
+export type ConfigProps = {
+  /**弹窗回调函数 */
+  callBackFn?:(...val:any[])=>void;
+
+}
+
 
 export class Popup  {
 
@@ -22,7 +29,10 @@ export class Popup  {
   /**弹窗内容 */
   popupContentNode:Node = null;
 
-  constructor(public prefab:Prefab) {
+  /**阻止重复进入关闭弹窗标识 */
+  stopMutiEnter:boolean = false;
+
+  constructor(public prefab:Prefab,public config:ConfigProps={}) {
       this.createPopup();
       this.initCloseEvent();
 
@@ -51,9 +61,18 @@ export class Popup  {
   }
 
   closePopup() {
+    if(this.stopMutiEnter) {
+      return 
+    }
+    this.stopMutiEnter = true;
+    const {callBackFn} = this.config;
     this.closeAnimation(this.popupContentNode)
     .then(()=>{
-        this.root.active = false
+        this.root.active = false;
+        callBackFn?.();
+    })
+    .finally(()=>{
+      this.stopMutiEnter = false
     })
   }
 

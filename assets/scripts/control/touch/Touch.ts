@@ -3,10 +3,10 @@ import { UINode } from '../../../ui-node';
 import Singleton from '../../../base/singleton';
 import { eliminateExe, eliminateFall, eliminateUpdatePos, findEliminateTree, positionToCoord,merge, getAbleElimateTree, nextLevel } from '../../../utils';
 import { State } from '../../State';
-import {State as PanelState} from '../../Panel/State'
+import {panel_data} from '../../Panel/State'
 import {PanelEntry} from '../../Panel'
 import { PopupControl } from '../../PopupControl';
-const { ccclass, property } = _decorator;
+const { ccclass } = _decorator;
 
 /**
  * 触摸事件
@@ -34,16 +34,17 @@ export class TouchCrtl extends Singleton  {
                 merge();  
                 await eliminateUpdatePos(3000);
                 const ableElimateTree = getAbleElimateTree();
-
+                const {isPass} = panel_data.getState()
                 /**已达通关条件 */
-                if(PanelState.inst.isPass) {
+                if(isPass) {
                     console.log('弹出Pass ICON')
                     PanelEntry.inst.controller.pass_icon_show();
                 }
 
                 if(!ableElimateTree ) {
                     console.log('不能再消除了')
-                    if(PanelState.inst.isPass) {
+                    console.log(panel_data.getState())
+                    if(isPass) {
                         console.log('通关')
                         PopupControl.inst.showSuccess()
                     } else {

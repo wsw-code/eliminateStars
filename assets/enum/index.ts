@@ -45,7 +45,7 @@ export enum AudioPath {
   /**按钮点击声音 */
   btnClick='btnClick',
   /**背景音乐 */
-  bgm="bgm",
+  // bgm="bgm",
 
   /**评价1 */
   combo_1="combo_1",

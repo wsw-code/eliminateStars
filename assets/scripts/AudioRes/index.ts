@@ -4,10 +4,6 @@ import Singleton from "../../base/singleton"
 import { State } from "../State"
 import { AudioPath } from "../../enum"
 
-const defaultOptions = {
-    loop:false,
-    volume:1
-}
 
 
 
@@ -50,7 +46,7 @@ export class AudioRes extends Singleton {
 
     /**播放背景音乐 */
     playBgm() {
-        AudioRes.inst.play(AudioPath.bgm);
+        // AudioRes.inst.play(AudioPath.bgm);
     }
 
     /**

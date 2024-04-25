@@ -28,7 +28,6 @@ export class Dialog extends Component {
   initEvents() {
     this.confirmBtn.on(Node.EventType.TOUCH_END,()=>{
         closePupop(this.node);
-        nextLevel();
     })
   }
 

@@ -4,7 +4,9 @@ import { nextLevel } from "../../utils";
 
 const { ccclass } = _decorator;
 
-
+type DialogConfigProps = {
+  contentStr:string
+}
 
 @ccclass('Dialog')
 export class Dialog extends Component {
@@ -21,7 +23,7 @@ export class Dialog extends Component {
   protected onLoad(): void {
     this.contentNode = find('container/Content',this.node);
     this.confirmBtn = find('container/Confirm',this.node);
-    this.contentNode.getComponent(Label).string = '通关成功';
+    this.contentNode.getComponent(Label).string = '';
     this.initEvents();
   }
 
@@ -29,6 +31,10 @@ export class Dialog extends Component {
     this.confirmBtn.on(Node.EventType.TOUCH_END,()=>{
         closePupop(this.node);
     })
+  }
+
+  config(config:DialogConfigProps) {
+    this.contentNode.getComponent(Label).string = config.contentStr;
   }
 
   

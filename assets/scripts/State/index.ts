@@ -41,11 +41,11 @@ export class State extends Singleton {
     set ableMusic(val:boolean) {
       this._ableMusic = val;
       UINode.inst.musicBtnOff.active = val;
-      if(!val) {
-        AudioRes.inst.play(AudioPath.bgm,true)
-      } else {
-        AudioRes.inst.stop(AudioPath.bgm)
-      }
+      // if(!val) {
+      //   AudioRes.inst.play(AudioPath.bgm,true)
+      // } else {
+      //   AudioRes.inst.stop(AudioPath.bgm)
+      // }
     }
 
  

@@ -32,7 +32,12 @@ export class PopupControl extends Singleton {
 
     showSuccess() {
        PopupControl.inst.show(PrefabRes.inst.prefabMap.get(PrefabPath.Dialog),{
-        callBackFn:nextLevel
+        callBackFn:nextLevel,
+        popupNodeConfig(node) {
+            node.getComponent(Dialog).config({
+                contentStr:'通关成功设置=='
+            })
+        },
        });
     }
 }

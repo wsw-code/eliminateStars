@@ -20,6 +20,7 @@ export class View extends Singleton {
 
     target_tip:Node = find('Canvas/GameNode/Panel/Tip');
 
+    /**关卡显示 节点 */
     current_level:Node = find('Canvas/GameNode/Panel/LevelInfo/Level')
 
 }

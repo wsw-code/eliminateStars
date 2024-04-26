@@ -13,24 +13,25 @@ export class State extends Singleton {
         return super.getInstance<State>()
     }
 
-    crrentScore:number = 0;
+    currentScore:number = 0;
 
-
-
+    /**当前关卡索引 */
     level:number = 0;
-
-    /** 目标分数 */
-    target_score: number = this.currentLevel.score
 
     /**面板分数 */
     score: number = 0;
+
+    /** 目标分数 */
+    get target_score() {
+        return this.currentLevel.score
+    }
+
+
 
     /**获取当前关卡数据 */
     get currentLevel() {
         return LEVEL[this.level]
     }
-
-
 
     /**判断是否通关 */
     get isPass() {

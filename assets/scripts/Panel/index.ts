@@ -32,6 +32,7 @@ export class PanelEntry extends Singleton {
         this.controller.target_tip_change()
         this.controller.pass()
         this.controller.target_score_change();
+        this.controller.current_level_show();
     }
 
 }

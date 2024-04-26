@@ -323,8 +323,8 @@ export const getNumberFromString = (a: string) => {
 /**下一个关卡 */
 export const nextLevel = () => {
 
-
-  panel_data.dispatch({level:panel_data.getState().level+1})
+  const {score,level} = panel_data.getState()
+  panel_data.dispatch({level:level+1,currentScore:score})
   PanelEntry.inst.controller.initPassNodeStatus()
   MapData.inst.initGameMap();
 }

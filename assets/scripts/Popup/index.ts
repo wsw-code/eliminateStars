@@ -16,7 +16,7 @@ export enum PopupEventType  {
 export type ConfigProps = {
   /**弹窗回调函数 */
   callBackFn?:(...val:any[])=>void;
-
+  popupNodeConfig?:(node:Node)=>void
 }
 
 
@@ -35,8 +35,6 @@ export class Popup  {
   constructor(public prefab:Prefab,public config:ConfigProps={}) {
       this.createPopup();
       this.initCloseEvent();
-
-
   }
 
 
@@ -45,14 +43,14 @@ export class Popup  {
       this.maskNode = this.createMask();
       this.maskNode.setParent(this.root);
       this.popupContentNode = instantiate(this.prefab);
+      if(this.config?.popupNodeConfig) {
+        // this.config?.popupNodeConfig.bind(this)()
+      }
       this.popupContentNode.setParent(this.root);
       this.show();
   }
 
   show() {
-
-
-
     this.root.setParent(UINode.inst.gameNode);
 
      this.root.active = true

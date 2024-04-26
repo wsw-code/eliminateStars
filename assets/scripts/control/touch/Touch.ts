@@ -43,7 +43,7 @@ export class TouchCrtl extends Singleton  {
 
                 if(!ableElimateTree ) {
                     console.log('不能再消除了')
-                    console.log(panel_data.getState())
+          
                     if(isPass) {
                         console.log('通关')
                         PopupControl.inst.showSuccess()

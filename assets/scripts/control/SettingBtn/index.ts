@@ -20,8 +20,6 @@ export class SettingBtn extends Singleton {
 
         UINode.inst.settingBtn.on(Node.EventType.TOUCH_END,()=>{
             AudioRes.inst.playBtnSound();
-
-            console.log(1111)
             PopupControl.inst.show(PrefabRes.inst.prefabMap.get(PrefabPath.Setting));
         })
 

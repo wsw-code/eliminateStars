@@ -70,21 +70,18 @@ export class Controller extends Component {
 
 
     target_score_change() {
-        
         const {target_score} = panel_data.getState();
+        console.log('target_score',panel_data.getState())
         View.inst.target_score.getComponent(Label).string = target_score+'';
     }
 
 
     /**分数进度条变更 */
     progess_bar_change() {
-        const {score,crrentScore,target_score} = panel_data.getState();
-        console.log(score,crrentScore)
+        const {score,currentScore,target_score} = panel_data.getState();
         const sprite = View.inst.progess_bar.getComponent(Sprite);
-        const fillRange = (score-crrentScore)/(target_score-crrentScore)
-        console.log('fillRange',fillRange)
-        tween( sprite ).to( 0.5 , { fillRange : Number(fillRange.toFixed(2)) }  ).start() ; 
-
+        const fillRange = (score-currentScore)/(target_score-currentScore);
+        tween( sprite ).to( 0.5 , { fillRange : Number(fillRange.toFixed(2)) }).start(); 
     }
 
 
@@ -141,7 +138,8 @@ export class Controller extends Component {
     }
 
     current_level_show() {
-        View.inst.current_level.getComponent(Label).string = State.inst.level+'';
+        const {level} = panel_data.getState();
+        View.inst.current_level.getComponent(Label).string = (level+1)+'';
     }
 
 

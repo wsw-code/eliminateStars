@@ -48,6 +48,8 @@ export class UINode extends Singleton {
     /**Pass通过节点 */
     public passNode:Node = null;
 
+    padding:number = 10;
+
 
     get eliminationContainer() {
         return this._eliminationContainer
@@ -59,9 +61,9 @@ export class UINode extends Singleton {
 
     adjustPosition(node:Node) {
         const transform = node.getComponent(UITransform);
-        transform.setContentSize(new Size(UIData.inst.worldWidth,UIData.inst.worldWidth))
+        transform.setContentSize(new Size(UIData.inst.worldWidth-this.padding*2,UIData.inst.worldWidth-this.padding*2))
         transform.setAnchorPoint(0,0);
-        node.setPosition(new Vec3(-UIData.inst.worldWidth/2,-UIData.inst.worldHeight/2));
+        node.setPosition(new Vec3(-UIData.inst.worldWidth/2+this.padding,-UIData.inst.worldHeight/2+this.padding));
         return node;
     }
 

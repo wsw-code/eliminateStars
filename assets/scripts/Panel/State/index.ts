@@ -1,10 +1,15 @@
 
 import { createStore } from "../../../base/redux";
 import Singleton from "../../../base/singleton"; 
-import { Stateton } from "../../../base/stateton";
 
-import {LEVEL} from '../../Level'
 
+
+
+const getLevel = (level:number) => {
+    return {
+        score:(level+1)*1500
+    }
+}
 
 
 
@@ -26,11 +31,9 @@ export class State extends Singleton {
         return this.currentLevel.score
     }
 
-
-
     /**获取当前关卡数据 */
     get currentLevel() {
-        return LEVEL[this.level]
+        return getLevel(this.level)
     }
 
     /**判断是否通关 */

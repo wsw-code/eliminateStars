@@ -21,6 +21,7 @@ export class Dialog extends Component {
   callBackFn:()=>void;
 
   protected onLoad(): void {
+    console.log('执行onLoad')
     this.contentNode = find('container/Content',this.node);
     this.confirmBtn = find('container/Confirm',this.node);
     this.contentNode.getComponent(Label).string = '';
@@ -34,8 +35,10 @@ export class Dialog extends Component {
   }
 
   config(config:DialogConfigProps) {
+    console.log('config === ',config)
     this.contentNode.getComponent(Label).string = config.contentStr;
   }
+  
 
   
 

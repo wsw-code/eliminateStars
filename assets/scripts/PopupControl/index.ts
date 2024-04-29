@@ -5,6 +5,7 @@ import { PrefabRes } from "../Prefabs";
 import { PrefabPath } from "../../enum";
 import { Dialog } from "../Dialog";
 import { nextLevel } from "../../utils";
+import { MapData } from "../mapdata";
 
 
 
@@ -25,7 +26,6 @@ export class PopupControl extends Singleton {
             popupInst = new Popup(prefab,config);
             this.popupMap.set(prefab,popupInst);
         }
-
         return popupInst
     }
 
@@ -35,9 +35,22 @@ export class PopupControl extends Singleton {
         callBackFn:nextLevel,
         popupNodeConfig(node) {
             node.getComponent(Dialog).config({
-                contentStr:'通关成功设置=='
+                contentStr:'通关成功'
             })
         },
        });
+    }
+
+    showFail() {
+        PopupControl.inst.show(PrefabRes.inst.prefabMap.get(PrefabPath.Dialog),{
+            callBackFn:()=>{
+                console.log('失败')
+            },
+            popupNodeConfig(node) {
+                node.getComponent(Dialog).config({
+                    contentStr:'通关失败'
+                })
+            },
+        });
     }
 }

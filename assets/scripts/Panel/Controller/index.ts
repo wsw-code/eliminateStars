@@ -56,7 +56,10 @@ export class Controller extends Component {
         if(this.currentTimes >= this.times) {
             showNumber = this.targetNumber
         }
-        View.inst.score_node.getComponent(Label).string = String(showNumber);
+        if(!Number.isNaN(showNumber)) {
+            View.inst.score_node.getComponent(Label).string = String(showNumber);
+        }
+        
     }
 
     
@@ -71,7 +74,6 @@ export class Controller extends Component {
 
     target_score_change() {
         const {target_score} = panel_data.getState();
-        console.log('target_score',panel_data.getState())
         View.inst.target_score.getComponent(Label).string = target_score+'';
     }
 

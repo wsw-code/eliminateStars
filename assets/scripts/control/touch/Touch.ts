@@ -6,6 +6,8 @@ import { State } from '../../State';
 import {panel_data} from '../../Panel/State'
 import {PanelEntry} from '../../Panel'
 import { PopupControl } from '../../PopupControl';
+import { AudioRes } from '../../AudioRes';
+import { AudioPath } from '../../../enum';
 const { ccclass } = _decorator;
 
 /**
@@ -46,8 +48,10 @@ export class TouchCrtl extends Singleton  {
           
                     if(isPass) {
                         console.log('通关')
-                        PopupControl.inst.showSuccess()
+                        PopupControl.inst.showSuccess();
+                        AudioRes.inst.play(AudioPath.combo_3)
                     } else {
+                        PopupControl.inst.showFail()
                         console.log('失败')
                     }
                      

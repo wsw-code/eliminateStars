@@ -107,10 +107,7 @@ export class Evaluate extends Singleton {
 
   show(num:number) {
   
-   
-
-    for (const [[min,max],{audioPath,sprite}] of this.evaluateMap) {
-     
+    for (const [[min,max],{audioPath,sprite}] of this.evaluateMap) {   
       if(num>=min && num <= max) {
         AudioRes.inst.play(audioPath);
         this.showEvaluateSprite(sprite)

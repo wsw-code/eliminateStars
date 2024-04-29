@@ -1,5 +1,5 @@
 import Singleton from "../../base/singleton";
-import { LEVEL } from "../Level";
+
 import { Controller } from "./Controller";
 import { State } from "./State";
 import {panel_data} from './State'

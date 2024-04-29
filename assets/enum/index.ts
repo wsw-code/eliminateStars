@@ -51,8 +51,9 @@ export enum AudioPath {
   combo_1="combo_1",
   /**评价2 */
   combo_2="combo_2",
-  /**评价3 */
+  /**评价3 | 通关成功 */
   combo_3="combo_3",
+
 
 }
 

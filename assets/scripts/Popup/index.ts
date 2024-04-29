@@ -43,19 +43,21 @@ export class Popup  {
       this.maskNode = this.createMask();
       this.maskNode.setParent(this.root);
       this.popupContentNode = instantiate(this.prefab);
-      if(this.config?.popupNodeConfig) {
-        // this.config?.popupNodeConfig.bind(this)()
-      }
+
       this.popupContentNode.setParent(this.root);
+
+      this.root.active = false;
+      this.root.setParent(UINode.inst.gameNode);
+
       this.show();
   }
 
   show() {
-    this.root.setParent(UINode.inst.gameNode);
-
-     this.root.active = true
-
-     this.openAnimation(this.popupContentNode);
+    this.root.active = true;
+    if(this.config?.popupNodeConfig) {
+      this.config?.popupNodeConfig(this.popupContentNode)
+    }
+    this.openAnimation(this.popupContentNode);
   }
 
   closePopup() {

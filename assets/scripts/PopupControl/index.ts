@@ -21,6 +21,7 @@ export class PopupControl extends Singleton {
     show(prefab:Prefab,config:ConfigProps={}) {
         let popupInst = this.popupMap.get(prefab);
         if(popupInst) {
+            popupInst.config = config;
             popupInst.show()
         } else {
             popupInst = new Popup(prefab,config);

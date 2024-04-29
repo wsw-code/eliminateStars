@@ -50,6 +50,10 @@ export class Init extends Component {
             SettingBtn.inst.init()
             PanelEntry.inst.init();
             Evaluate.inst.show(1);
+
+            PopupControl.inst.showFail();
+
+    
         })
 
     }

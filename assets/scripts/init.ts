@@ -6,15 +6,14 @@ import { UIData } from './uidata';
 import {MapData} from './mapdata';
 import { TouchCrtl } from './control/touch/Touch';
 import {lightAnimationClip} from './animationClip/light'
-import { Dir, PrefabPath } from '../enum';
+import { Dir } from '../enum';
 import { resLoad } from '../utils';
 import { AudioRes } from './AudioRes';
 import { SettingBtn } from './control/SettingBtn';
 import { PrefabRes } from './Prefabs';
 import { PanelEntry } from './Panel';
 import { Evaluate } from './Evaluate';
-import { PopupControl } from './PopupControl';
-import { Dialog } from './Dialog';
+
 
 
 @ccclass('init')

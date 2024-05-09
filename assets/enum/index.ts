@@ -54,7 +54,8 @@ export enum AudioPath {
   /**评价3 | 通关成功 */
   combo_3="combo_3",
 
-
+  /**背景音乐 */
+  bgm="bgm",
 }
 
 

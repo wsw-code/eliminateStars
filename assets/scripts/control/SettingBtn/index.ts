@@ -17,13 +17,10 @@ export class SettingBtn extends Singleton {
     }
 
     init() {
-
         UINode.inst.settingBtn.on(Node.EventType.TOUCH_END,()=>{
             AudioRes.inst.playBtnSound();
             PopupControl.inst.show(PrefabRes.inst.prefabMap.get(PrefabPath.Setting));
         })
-
-
     }
 }
 

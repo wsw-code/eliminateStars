@@ -18,8 +18,8 @@ export class AudioRes extends Singleton {
 
     audioMap:Map<string,AudioClip> = new Map()
 
-  
- 
+    audioPlayerMap:Map<string,Node> = new Map()
+    
 
     constructor() {
         super();
@@ -46,7 +46,7 @@ export class AudioRes extends Singleton {
 
     /**播放背景音乐 */
     playBgm() {
-        // AudioRes.inst.play(AudioPath.bgm);
+        AudioRes.inst.play(AudioPath.bgm);
     }
 
     /**
@@ -61,24 +61,36 @@ export class AudioRes extends Singleton {
             console.log(`没找打对应音频:${path}`)
             return 
         }
+
+
     
-        const node = new Node();
+        const node = new Node(path);
         const audioPlayer = node.addComponent(AudioSource);
         audioPlayer.clip = clip;
         audioPlayer.loop = loop
-        
- 
-        
         audioPlayer.play();
+
+        if(!this.audioPlayerMap.get(path)) {
+            this.audioPlayerMap.set(path,node)
+        }
 
         if(!loop) {
             setTimeout(()=>{
                 node?.destroy()
             },audioPlayer.duration)
         }
+        
         return audioPlayer
     }
     stop(path:string) {
-
+        const node = this.audioPlayerMap.get(path)
+        if(node) {
+   
+            const audioPlayer = node.getComponent(AudioSource);
+            audioPlayer.stop()
+            node.destroy();
+            this.audioPlayerMap.delete(path)
+         
+        }
     }
 }

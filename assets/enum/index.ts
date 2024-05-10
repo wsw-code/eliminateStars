@@ -85,3 +85,10 @@ export enum CommonNodeName {
   /**弹窗最顶部节点 */
   NAME_POPUP = "NAME_POPUP"
 }
+
+
+
+export enum LOCAL_STORAGE {
+  /**最高记录分数 */
+  RECOED_SCORE="RECOED_SCORE"
+}

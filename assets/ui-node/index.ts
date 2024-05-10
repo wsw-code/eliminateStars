@@ -48,6 +48,8 @@ export class UINode extends Singleton {
     /**Pass通过节点 */
     public passNode:Node = null;
 
+    public globalEventNode:Node = new Node('GLOBAL_EVENT_NODE')
+
     padding:number = 10;
 
 

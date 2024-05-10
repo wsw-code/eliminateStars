@@ -20,11 +20,9 @@ export class PanelEntry extends Singleton {
  
     }
 
-
     init() {
         panel_data.subscribe(this.stateChange.bind(this))
     }
-
 
     stateChange(value:State,oldVal:State) {
         this.controller.score_view_rolling(value.score,oldVal?.score)

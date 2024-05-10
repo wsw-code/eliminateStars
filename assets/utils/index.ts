@@ -11,8 +11,11 @@ import { Score } from '../scripts/Score';
 import {panel_data} from '../scripts/Panel/State'
 import {PanelEntry} from '../scripts/Panel'
 import { Evaluate } from '../scripts/Evaluate';
+import { LOCAL_STORAGE } from '../enum';
+import { State } from '../scripts/State';
 
-
+/**公共事件 监听/发送名称 */
+export const LOCAL_DATA_FOR_USER ='LOCAL_DATA_FOR_USER'
 
 
 /**
@@ -331,4 +334,25 @@ export const nextLevel = () => {
 
 
 
+/**
+ * 记录最高分数
+ */
+export const record_score = () => {
 
+  const {score} = panel_data.getState();
+
+
+
+  try {
+
+    console.log(score , State.inst.record_score)
+    if(score > State.inst.record_score ) {
+      localStorage.setItem(LOCAL_STORAGE.RECOED_SCORE,score+'')
+    }
+
+  } catch (error) {
+    console.log(error)
+  }
+
+
+}

@@ -145,5 +145,12 @@ export class Controller extends Component {
     }
 
 
+    record_num_change() {
+
+        const {recordNum} = panel_data.getState();
+
+        
+        View.inst.record_num.getComponent(Label).string = recordNum+'';
+    }
 
 }

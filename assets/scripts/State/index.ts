@@ -16,7 +16,8 @@ export class State extends Singleton {
   /**是否能点击 */
   ableClick:boolean = true;
 
-
+  /**最大记录分数 */
+  record_score:number = 0;
 
   /**按钮点击声音 */
   _ableSound:boolean = true;

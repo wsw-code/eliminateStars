@@ -6,13 +6,14 @@ import { UIData } from './uidata';
 import {MapData} from './mapdata';
 import { TouchCrtl } from './control/touch/Touch';
 import {lightAnimationClip} from './animationClip/light'
-import { Dir } from '../enum';
-import { resLoad } from '../utils';
+import { Dir, LOCAL_STORAGE } from '../enum';
+import { LOCAL_DATA_FOR_USER, resLoad } from '../utils';
 import { AudioRes } from './AudioRes';
 import { SettingBtn } from './control/SettingBtn';
 import { PrefabRes } from './Prefabs';
 import { PanelEntry } from './Panel';
 import { Evaluate } from './Evaluate';
+import { State } from './State';
 
 
 
@@ -49,13 +50,28 @@ export class Init extends Component {
             SettingBtn.inst.init()
             PanelEntry.inst.init();
             Evaluate.inst.show(1);
+            this.initData();
         })
 
     }
 
 
 
+    initData() {
 
+        this.getRecord()
+
+    }
+
+
+
+
+    getRecord() {
+        const num = Number(localStorage.getItem(LOCAL_STORAGE.RECOED_SCORE) || 0);
+
+        State.inst.record_score = num;
+
+    }
     
 
 

@@ -71,10 +71,11 @@ export enum PrefabPath {
   Dialog="Dialog"
 }
 
-
-
-export enum GlobalEvents {
-
+localStorage
+/**localStorage Api 存取key */
+export enum GLOBAL_EVENTS {
+  /**最高分 */
+  GET_RECORD="GET_RECORD",
 }
 
 
@@ -90,5 +91,7 @@ export enum CommonNodeName {
 
 export enum LOCAL_STORAGE {
   /**最高记录分数 */
-  RECOED_SCORE="RECOED_SCORE"
+  RECOED_SCORE="RECOED_SCORE",
+  /**声音配置 */
+  SOUND_CONFIG="SOUND_CONFIG"
 }

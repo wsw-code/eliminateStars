@@ -4,7 +4,7 @@ import {Vec3,Node,Size, SpriteFrame,UITransform,Layers, Sprite, Animation, Compo
 import { ColorType } from "../../types";
 import { UIData } from '../uidata';
 
-import { UINode } from '../../ui-node';
+import { UINode } from '../../UiNode';
 import { coordToPosition, getCellPos, rnd } from '../../utils';
 import { Dir, NodeName, PathString } from '../../enum';
 

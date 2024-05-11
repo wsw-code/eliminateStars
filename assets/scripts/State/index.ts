@@ -1,7 +1,7 @@
 
 import Singleton from "../../base/singleton";
 import { AudioPath } from "../../enum";
-import { UINode } from "../../ui-node";
+import { UINode } from "../../UiNode";
 import { AudioRes } from "../AudioRes";
 
 

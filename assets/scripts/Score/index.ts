@@ -2,7 +2,7 @@ import { Node, IQuatLike, Label, Quat, UITransform, Vec2, Vec3, instantiate, twe
 import Singleton from "../../base/singleton";
 import { PrefabRes } from "../Prefabs";
 import { PrefabPath } from "../../enum";
-import { UINode } from "../../ui-node";
+import { UINode } from "../../UiNode";
 import { Cell } from "../Cell";
 import { UIData } from "../uidata";
 

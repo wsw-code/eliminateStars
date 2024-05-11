@@ -1,7 +1,7 @@
 import { AudioClip, AudioSource,Node } from "cc"
 import Singleton from "../../base/singleton"
 
-import { State } from "../State"
+import { global_state} from "../GlobalState/State"
 import { AudioPath } from "../../enum"
 
 
@@ -39,9 +39,7 @@ export class AudioRes extends Singleton {
 
     /**播放按键声音 */
     playBtnSound() {
-        if(State.inst.ableSound) {
-            AudioRes.inst.play(AudioPath.btnClick)
-        }
+        AudioRes.inst.play(AudioPath.btnClick)
     }
 
     /**播放背景音乐 */
@@ -56,6 +54,9 @@ export class AudioRes extends Singleton {
      * @returns 
      */
     play(path:string,loop:boolean = false){
+        if(!global_state.getState().ableSound) {
+            return 
+        }
         const clip = this.audioMap.get(path);
         if(!clip) {
             console.log(`没找打对应音频:${path}`)

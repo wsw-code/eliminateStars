@@ -1,20 +1,19 @@
 import { _decorator, Component, Node,find, UITransform,Layers, Sprite, Color,Size,resources,SpriteFrame,Animation, Vec3, AudioClip, Prefab, Font } from 'cc';
-import {UINode} from '../ui-node'
+import {UINode} from '../UiNode'
 const { ccclass } = _decorator;
 import { UIData } from './uidata';
 
-import {MapData} from './mapdata';
+import {MapData} from './Mapdata';
 import { TouchCrtl } from './control/touch/Touch';
 import {lightAnimationClip} from './animationClip/light'
-import { Dir, LOCAL_STORAGE } from '../enum';
-import { LOCAL_DATA_FOR_USER, resLoad } from '../utils';
+import { Dir, GLOBAL_EVENTS, LOCAL_STORAGE } from '../enum';
+import { resLoad } from '../utils';
 import { AudioRes } from './AudioRes';
-import { SettingBtn } from './control/SettingBtn';
 import { PrefabRes } from './Prefabs';
 import { PanelEntry } from './Panel';
 import { Evaluate } from './Evaluate';
-import { State } from './State';
-
+import GlobalState from './GlobalState'
+import {global_state} from './GlobalState/State'
 
 
 @ccclass('init')
@@ -45,12 +44,13 @@ export class Init extends Component {
                 type:Prefab
             }),
         ]).then(()=>{
+            GlobalState.inst.init();
             MapData.inst.initGameMap();
             TouchCrtl.inst.initTouch();
-            SettingBtn.inst.init()
             PanelEntry.inst.init();
             Evaluate.inst.show(1);
             this.initData();
+            
         })
 
     }
@@ -60,16 +60,29 @@ export class Init extends Component {
     initData() {
 
         this.getRecord()
-
+        this.getSoundConfig()
     }
 
 
+    getSoundConfig() {
+        try {
+            const config = JSON.parse(localStorage.getItem(LOCAL_STORAGE.SOUND_CONFIG)); 
+
+            global_state.dispatch({
+                ableMusic:config.ableMusic,
+                ableSound:config.ableSound
+            })
+
+        } catch (error) {
+            console.log(error)
+        }
+        
+    }
 
 
     getRecord() {
         const num = Number(localStorage.getItem(LOCAL_STORAGE.RECOED_SCORE) || 0);
-
-        State.inst.record_score = num;
+        UINode.inst.globalEventNode.emit(GLOBAL_EVENTS.GET_RECORD,num)
 
     }
     

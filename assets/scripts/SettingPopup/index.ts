@@ -1,10 +1,13 @@
 import { _decorator, Component, find, Node } from 'cc';
-import { UINode } from '../../../ui-node';
-import { AudioRes } from '../../AudioRes';
-import { State } from '../../State';
-import { MapData } from '../../mapdata';
-import { panel_data } from '../../Panel/State';
-import { closePupop } from '../../Popup';
+import { UINode } from '../../UiNode';
+import { AudioRes } from '../AudioRes';
+import { MapData } from '../Mapdata';
+import { panel_data } from '../Panel/State';
+import { closePupop } from '../Popup';
+import {global_state,State} from '../GlobalState/State';
+import { LOCAL_STORAGE } from '../../enum';
+
+
 const { ccclass, property } = _decorator;
 
 @ccclass('SettingPopup')
@@ -13,11 +16,18 @@ export class SettingPopup extends Component {
 
     continueBtn:Node = null
 
+    unsubscribe:()=>void;
+
     protected onLoad(): void {
 
         this.initNode();
         this.initEvents();
 
+        this.unsubscribe = global_state.subscribe(this.subscribeFn.bind(this))
+    }
+
+    protected onDestroy(): void {
+        this.unsubscribe?.()
     }
 
     /**初始化节点 */
@@ -30,21 +40,32 @@ export class SettingPopup extends Component {
         this.continueBtn = find('container/Continue',this.node);
     }
 
+    subscribeFn({ableSound,ableMusic}:State) {
+        localStorage.setItem(LOCAL_STORAGE.SOUND_CONFIG,JSON.stringify({ableSound,ableMusic}));
+        UINode.inst.musicBtnOff.active = !ableMusic
+        UINode.inst.soundBtnOff.active = !ableSound
+    }
+
+
+
+
+
+
     /**
      * 初始化事件
      */
     initEvents() {
 
         UINode.inst.soundBtn.on(Node.EventType.TOUCH_START,()=>{
-            
-            State.inst.ableSound = !State.inst.ableSound;
-            if(State.inst.ableSound) {
-                AudioRes.inst.playBtnSound();
-            }
+            const {ableSound} = global_state.getState();
+            global_state.dispatch({ableSound:!ableSound})
+
         });
         UINode.inst.musicBtn.on(Node.EventType.TOUCH_START,()=>{
             AudioRes.inst.playBtnSound();
-            State.inst.ableMusic = !State.inst.ableMusic;
+            const {ableMusic} = global_state.getState();
+            global_state.dispatch({ableMusic:!ableMusic})
+
         });
 
         UINode.inst.newBtn.on(Node.EventType.TOUCH_START,()=>{

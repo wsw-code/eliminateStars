@@ -1,6 +1,6 @@
 import { AudioClip, SpriteFrame,Node, Sprite, UITransform, tween, Vec3, UIOpacity, Tween } from "cc";
 import Singleton from "../../base/singleton";
-import { UINode } from "../../ui-node";
+import { UINode } from "../../UiNode";
 import { AudioRes } from "../AudioRes";
 import { UIData } from "../uidata";
 import { AudioPath, CommonSprite, Dir } from "../../enum";

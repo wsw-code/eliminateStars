@@ -1,6 +1,6 @@
 import { Prefab, instantiate,Node, Vec3, tween, BlockInputEvents, find, NodeEventType } from "cc";
 import { PrefabRes } from "../Prefabs";
-import { UINode } from "../../ui-node";
+import { UINode } from "../../UiNode";
 import { CommonNodeName, PrefabPath } from "../../enum";
 
 

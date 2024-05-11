@@ -5,7 +5,7 @@ import { PrefabRes } from "../Prefabs";
 import { PrefabPath } from "../../enum";
 import { Dialog } from "../Dialog";
 import { nextLevel } from "../../utils";
-import { MapData } from "../mapdata";
+
 
 
 

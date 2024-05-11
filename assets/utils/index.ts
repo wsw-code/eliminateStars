@@ -1,11 +1,11 @@
 
 
 import { UIData } from '../scripts/uidata';
-import {  MapData } from '../scripts/mapdata';
+import {  MapData } from '../scripts/Mapdata';
 import { Cell } from '../scripts/Cell';
-import { AXLE_SIZE } from '../state';
+import { AXLE_SIZE } from '../config';
 import { Bomb } from '../scripts/Bomb';
-import { UINode } from '../ui-node';
+import { UINode } from '../UiNode';
 import { Asset, AudioClip, Node, SpriteFrame, UITransform, Vec3, find, resources, tween } from 'cc';
 import { Score } from '../scripts/Score';
 import {panel_data} from '../scripts/Panel/State'

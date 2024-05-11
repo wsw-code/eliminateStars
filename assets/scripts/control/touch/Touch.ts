@@ -1,5 +1,5 @@
 import { _decorator,NodeEventType,Vec2 } from 'cc';
-import { UINode } from '../../../ui-node';
+import { UINode } from '../../../UiNode';
 import Singleton from '../../../base/singleton';
 import { eliminateExe, eliminateFall, eliminateUpdatePos, findEliminateTree, positionToCoord,merge, getAbleElimateTree, nextLevel, LOCAL_DATA_FOR_USER, record_score } from '../../../utils';
 import { State } from '../../State';
@@ -7,7 +7,7 @@ import {panel_data} from '../../Panel/State'
 import {PanelEntry} from '../../Panel'
 import { PopupControl } from '../../PopupControl';
 import { AudioRes } from '../../AudioRes';
-import { AudioPath, LOCAL_STORAGE } from '../../../enum';
+import { AudioPath } from '../../../enum';
 const { ccclass } = _decorator;
 
 /**
@@ -55,7 +55,6 @@ export class TouchCrtl extends Singleton  {
                         AudioRes.inst.play(AudioPath.combo_3)
                     } else {
                         PopupControl.inst.showFail();
-                  
                         console.log('失败')
                     }
                      

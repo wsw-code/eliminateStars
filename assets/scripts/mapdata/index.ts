@@ -3,11 +3,11 @@ import {Vec3,Size,tween, Node} from 'cc'
 import Singleton from '../../base/singleton';
 import { ColorType } from "../../types";
 import { UIData } from '../uidata';
-import {AXLE_SIZE} from '../../state';
+import {AXLE_SIZE} from '../../config';
 import {  forEachCell, rnd } from '../../utils';
 import {Cell} from '../Cell'
 import { Elimination } from '../Elimination';
-import { UINode } from '../../ui-node';
+import { UINode } from '../../UiNode';
 
 
 

@@ -4,7 +4,7 @@ import { View } from "../View"
 import { State, panel_data } from "../State";
 import { UIData } from "../../uidata";
 import { CommonSprite, Dir } from "../../../enum";
-import { UINode } from "../../../ui-node";
+import { UINode } from "../../../UiNode";
 
 
         
@@ -148,8 +148,6 @@ export class Controller extends Component {
     record_num_change() {
 
         const {recordNum} = panel_data.getState();
-
-        
         View.inst.record_num.getComponent(Label).string = recordNum+'';
     }
 

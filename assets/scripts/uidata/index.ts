@@ -1,8 +1,8 @@
 import Singleton from "../../base/singleton";
 
-import {SpriteFrame,UITransform,resources} from 'cc'
-import { UINode } from "../../ui-node";
-import { AXLE_SIZE } from "../../state";
+import {SpriteFrame,UITransform} from 'cc'
+import { UINode } from "../../UiNode";
+import { AXLE_SIZE } from "../../config";
 import { Dir } from "../../enum";
 
 export class UIData extends Singleton {

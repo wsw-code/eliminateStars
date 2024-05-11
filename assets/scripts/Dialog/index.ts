@@ -1,6 +1,6 @@
 import { Component, find,Node,_decorator, Label, NodeEventType } from "cc";
 import { closePupop } from "../Popup";
-import { nextLevel } from "../../utils";
+
 
 const { ccclass } = _decorator;
 

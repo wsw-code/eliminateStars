@@ -77,7 +77,6 @@ export class UINode extends Singleton {
         this.settingBtn = find('Canvas/GameNode/Pause');
         this.settingPopup = find('Canvas/Popup/Setting');
         this.currentScore = find('Canvas/GameNode/Panel/CurrentScore');
-        
     }
 
 

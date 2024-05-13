@@ -39,7 +39,7 @@ export class AudioRes extends Singleton {
 
     /**播放按键声音 */
     playBtnSound() {
-        console.log('播放点击声音？')
+    
         AudioRes.inst.play(AudioPath.btnClick)
     }
 
@@ -55,10 +55,13 @@ export class AudioRes extends Singleton {
      * @returns 
      */
     play(path:string,loop:boolean = false){
+ 
         if(!global_state.getState().ableSound) {
             return 
         }
         const clip = this.audioMap.get(path);
+
+     
         if(!clip) {
             console.log(`没找打对应音频:${path}`)
             return 
@@ -72,14 +75,17 @@ export class AudioRes extends Singleton {
         audioPlayer.loop = loop
         audioPlayer.play();
 
+
+
         if(!this.audioPlayerMap.get(path)) {
             this.audioPlayerMap.set(path,node)
         }
 
         if(!loop) {
             setTimeout(()=>{
-                node?.destroy()
-            },audioPlayer.duration)
+                node?.destroy();
+                this.audioPlayerMap.delete(path);
+            },audioPlayer.duration*1000)
         }
         
         return audioPlayer

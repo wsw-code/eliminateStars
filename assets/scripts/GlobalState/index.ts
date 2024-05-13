@@ -15,23 +15,17 @@ export default class GlobalState extends Singleton {
     }
 
     init() {
-      global_state.subscribe(this.soundChange.bind(this));
+      global_state.subscribe(this.musicChange.bind(this));
       
     }
 
-    soundChange({ableSound,ableMusic}:State) {
-
-      if(ableSound) {
-          AudioRes.inst.playBtnSound();
-      }
-
+    musicChange({ableSound,ableMusic}:State) {
       if(ableMusic) {
           AudioRes.inst.play(AudioPath.bgm,true)
       } else {
           AudioRes.inst.stop(AudioPath.bgm)
       }
-
-  }
+    }
 
 
 

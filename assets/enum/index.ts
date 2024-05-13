@@ -44,9 +44,6 @@ export enum AudioPath {
   pop_star='pop_star',
   /**按钮点击声音 */
   btnClick='btnClick',
-  /**背景音乐 */
-  // bgm="bgm",
-
   /**评价1 */
   combo_1="combo_1",
   /**评价2 */

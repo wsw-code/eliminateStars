@@ -39,6 +39,7 @@ export class AudioRes extends Singleton {
 
     /**播放按键声音 */
     playBtnSound() {
+        console.log('播放点击声音？')
         AudioRes.inst.play(AudioPath.btnClick)
     }
 

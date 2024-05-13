@@ -58,7 +58,11 @@ export class SettingPopup extends Component {
 
         UINode.inst.soundBtn.on(Node.EventType.TOUCH_START,()=>{
             const {ableSound} = global_state.getState();
-            global_state.dispatch({ableSound:!ableSound})
+            const currentValue = !ableSound;
+            global_state.dispatch({ableSound:currentValue});
+            if(currentValue) {
+                AudioRes.inst.playBtnSound();
+            }
 
         });
         UINode.inst.musicBtn.on(Node.EventType.TOUCH_START,()=>{

@@ -1,4 +1,4 @@
-import { _decorator, Component, Node,find, UITransform,Layers, Sprite, Color,Size,resources,SpriteFrame,Animation, Vec3, AudioClip, Prefab, Font } from 'cc';
+import { _decorator, Component, Node,find, UITransform,Layers, Sprite, Color,Size,resources,SpriteFrame,Animation, Vec3, AudioClip, Prefab, Font, assetManager, AssetManager } from 'cc';
 import {UINode} from '../UiNode'
 const { ccclass } = _decorator;
 import { UIData } from './uidata';
@@ -61,6 +61,19 @@ export class Init extends Component {
 
         this.getRecord()
         this.getSoundConfig()
+        this.testFn()
+    }
+
+    testFn() {
+
+        assetManager.loadBundle('res', (err: string, budle: AssetManager.Bundle) => {
+            if (budle) {
+               console.log(budle, '资源加载成功')
+            } else {
+                console.log('资源加载失败' + err);
+            }
+        });
+
     }
 
 
@@ -88,34 +101,6 @@ export class Init extends Component {
     
 
 
-
-    testFn()  {
-        let num = 0;
-        testloop:{
-            for (let i = 0; i < 10; i++) {
-                for (let j = 0; j < 10; j++) {
-                    if(i === 5 && j === 5) {
-                        break 
-                    }
-                    
-                    num++;
-                    
-                }
-
-                
-            }
-        }
-
-
-        // for (let index = 0; index < 10; index++) {
-        //    if(index === 5) {
-        //     break
-        //    }
-        //    console.log(index)
-        // }
-
-        console.log('num ==== ',num)
-    }
 
 
     loadAudio() {
